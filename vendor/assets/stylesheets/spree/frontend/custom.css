@@ -1,0 +1,183 @@
+/* custom */
+#product-properies-arrow {
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+.add-to-cart-form-general-availability .vendor-tag{
+  font-size: 0.775rem;
+}
+/* cart */
+span.out-of-stock {
+  color: white;
+  background-color: red;
+}
+
+.product-added-modal-product-details-name {
+    font-size: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (min-width: 992px) {
+  .shopping-cart-item .item-title {
+    margin-bottom: 14px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+
+/* homepage */
+.homepage-hero-image-text {
+  color: white;
+}
+/* Product Page */
+.mt-5, .my-5 {
+  margin-top: 0.5rem !important;
+}
+@media (min-width: 768px) {
+  .pt-md-5, .py-md-5 {
+    padding-top: 0.5rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .product-details-title {
+    font-size: 1.75rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+}
+
+@media (min-width: 768px) {
+  #product-details .breadcrumb-item:last-of-type {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* mobile */
+.mobile-navigation-list-item a, .mobile-navigation-sublist-item a {
+  color: black;
+  text-decoration: none;
+}
+.product-component-image {
+    width: 100%;
+    object-fit: scale-down;
+    max-height: 300px;
+}
+/* mobile cart*/
+.shopping-cart-item .item-title {
+    margin-bottom: 5px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+
+/* User Account Page */
+.order-show-line-items-line-item-desc-name {
+    font-size: 1.3rem;
+}
+
+.vendor-name-account-page {
+    font-size: 1.2rem;
+}
+
+.card-delete-btn{
+  right: 1rem;
+  top: 1rem;
+  position: absolute;
+}
+@media (max-width: 767.98px) {
+  .card-delete-btn{
+    position: unset;
+  }
+}
+
+.plp-overlay-card-item1 {
+  border: solid 1px #e2e2e2;
+  color: black;
+  font-size: 0.8125rem;
+}
+.plp-overlay-card-item1--selected {
+  border: solid 2px #4c4c4c;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 180px;
+  box-shadow: 10px 10px 5px #00000036;
+  z-index: 999;
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+  bottom: 2.5rem;
+  right: -3rem;
+}
+
+.comp-dropbtn {
+  background-color: red;
+  color: white;
+  font-size: 0.8rem;
+  border: none;
+  font-weight: bold;
+  padding: 0.2rem;
+  border-radius: 6px
+}
+
+.comp-dropdown {
+  position: relative;
+  display: inline-block;
+  top: -0.3rem;
+  left: 0.5rem;
+}
+
+.comp-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fbfbfb;
+  min-width: 150px;
+  box-shadow: 10px 10px 5px #00000036;
+  font-size: 0.8rem;
+  text-align: center;
+  z-index: 1;
+  padding: 0.5rem;
+  left: -3rem;
+}
+
+.comp-dropdown-content span {
+  display: block;
+}
+
+.comp-dropdown-content span a {
+  color: black;
+  padding-left: 0.5rem;
+}
+
+.comp-dropdown-content span a:hover {
+  text-decoration: none;
+}
+
+.comp-dropdown:hover .comp-dropdown-content {display: block;}
+
+@media (max-width: 768px) {
+  .comp-dropdown-content {
+    min-width: 126px;
+  }
+}

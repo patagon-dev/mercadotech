@@ -1,0 +1,16 @@
+var response1 = '';
+var response2 = '';
+
+<% if (@label_response && @label_response[:message]) %>
+  response1 = "Shipment Label: <%= @label_response[:message] %>";
+<% end %>
+
+<% if (@pickup_response && @pickup_response[:message]) %>
+  response2 = "Pickup Response: <%= @pickup_response[:message] %>";
+<% end %>
+
+var message = response1 + response2;
+if (message) alert(message);
+else alert('Something went wrong!');
+
+window.localtion.reload();

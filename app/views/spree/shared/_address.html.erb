@@ -1,0 +1,25 @@
+<div class="address vcard">
+
+  <% if s_or_b == 'b' %>
+    <div><%= Spree.t(:document) %>: <%= Spree.t("invoice_type_#{address.document_type}") %></div>
+    <div> <b>RUT:</b> <%= address.company_rut %></div>
+  <% end %>
+
+  <% unless address.company.blank? %>
+    <div class="org">
+      <b>Empresa:</b> <%= address.company %>
+    </div>
+  <% end %>
+  <div class="adr">
+    <div class="street-address">
+      <div class="street-address-line">
+        <b>Dirección:</b><br><%= "#{address.address1} #{address.street_number} #{address.address2}" %>
+      </div>
+    </div>
+    <div class="local">
+      <span class="comuna"><%= address.county %>, <%= address.state_text %><br></span>
+  <div class="fn"><b>Contacto:</b> <%= address.full_name %></div>
+	  <div class="fn"><b>Fono: </b>+569<%= address.phone %></div>
+    </div>
+  </div>
+</div>

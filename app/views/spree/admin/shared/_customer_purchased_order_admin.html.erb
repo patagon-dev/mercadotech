@@ -1,0 +1,38 @@
+<% if purchased_orders.any? %>
+  <div class="card mb-3">
+    <div class="card-header">
+      <h1 class="card-title mb-0 h5">
+        <%= Spree.t(:customer_purchased_details) %>
+      </h1>
+    </div>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th><%= Spree.t(:vendor) %></th>
+          <th><%= Spree.t(:purchase_order_number) %></th>
+          <th><%= Spree.t(:attached_purchased_order) %></th>
+        </tr>
+      </thead>
+      <tbody id="order-charges" data-hook="order_details_adjustments">
+        <% purchased_orders.each do |purchased_order| %>
+          <tr class="total">
+            <td>
+              <strong><%= purchased_order.vendor&.name %></strong>
+            </td>
+            <td class="total">
+              <span>
+                <%= purchased_order.purchase_order_number %>
+              </span>
+            </td>
+            <td class="total">
+              <span>
+                <%= link_to purchased_order.purchase_order.filename, Rails.application.routes.url_helpers.rails_blob_path(purchased_order.purchase_order, disposition: "inline", only_path: true) %>
+              </span>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

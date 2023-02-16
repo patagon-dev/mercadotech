@@ -1,0 +1,5 @@
+<body onload="document.f.submit();">
+  <form action=<%= @voucher_url %> method='post' id='f' name='f'>
+    <%= hidden_field_tag 'token_ws', @token_ws %>
+  </form>
+</body>

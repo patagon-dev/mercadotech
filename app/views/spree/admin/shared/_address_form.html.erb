@@ -1,0 +1,118 @@
+<% s_or_b = type.chars.first %>
+
+<div id="<%= type %>" data-hook="address_fields">
+  <%= field_container f.object, :firstname, class: ["form-group", "#{type}-row"] do %>
+    <div class="row">
+      <div class="col">
+        <%= f.label :firstname, Spree.t(:first_name) %>
+        <%= f.text_field :firstname, class: 'form-control' %>
+        <%= error_message_on f.object, :firstname %>
+      </div>
+      <div class="col">
+        <%= f.label :lastname, Spree.t(:last_name) %>
+        <%= f.text_field :lastname, class: 'form-control' %>
+        <%= error_message_on f.object, :lastname %>
+      </div>
+  <% end %>
+
+  <% if s_or_b == 'b' %>
+    <% if Spree::Config[:company] %>
+      <%= field_container f.object, :company, class: ["form-group", "#{type}-row"] do %>
+        <%= f.label :company, Spree.t(:company) %>
+        <%= f.text_field :company, class: 'form-control' %>
+        <%= error_message_on f.object, :company %>
+      <% end %>
+    <% end %>
+
+    <%= field_container f.object, :company_rut, class: ["form-group", "#{type}-row"] do %>
+      <%= f.label :company_rut, Spree.t(:company_rut) %>
+      <%= f.text_field :company_rut, class: 'form-control' %>
+      <%= error_message_on f.object, :company_rut %>
+    <% end %>
+
+    <%= field_container f.object, :company_business, class: ["form-group", "#{type}-row"] do %>
+      <%= f.label :company_business, Spree.t(:company_business) %>
+      <%= f.text_field :company_business, class: 'form-control' %>
+      <%= error_message_on f.object, :company_business %>
+    <% end %>
+  <% end %>
+
+  <%= field_container f.object, :address1, class: ["form-group", "#{type}-row"] do %>
+    <div class="row">
+      <div class="col">
+        <%= f.label :address1, Spree.t(:street_address) %>
+        <%= f.text_field :address1, class: 'form-control' %>
+        <%= error_message_on f.object, :address1 %>
+      </div>
+      <div class="col">
+        <%= f.label :street_number, Spree.t(:street_number) %>
+        <%= f.number_field :street_number, class: 'form-control' %>
+        <%= error_message_on f.object, :street_number %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= field_container f.object, :address2, class: ["form-group", "#{type}-row"] do %>
+    <%= f.label :address2, Spree.t(:street_address_2) %>
+    <%= f.text_field :address2, class: 'form-control' %>
+    <%= error_message_on f.object, :address2 %>
+  <% end %>
+
+  <div class="form-group <%= "#{type}-row" %>">
+    <%= f.label :country_id, Spree.t(:country) %>
+    <span id="<%= s_or_b %>country">
+      <%= f.collection_select :country_id, available_countries, :id, :name, {}, { class: 'select2' } %>
+    </span>
+  </div>
+  <%= field_container f.object, :state, class: ["form-group", "#{type}-row"] do %>
+    <%= f.label :state_id, Spree.t(:state) %>
+    <span id="<%= s_or_b %>state">
+      <% if f.object.country.try(:states) %>
+
+      <%= f.text_field :state_name,
+            style: "display: #{f.object.country.try(:states) && f.object.country.states.empty? ? 'block' : 'none' };",
+            disabled: !(f.object.country.try(:states) && f.object.country.states.empty?), class: 'form-control state_name' %>
+        <%= f.collection_select :state_id, f.object.country.states.sort, :id, :name, { include_blank: true }, { class: 'select2', style: "display: #{ f.object.country.states.empty? ? 'none' : 'block' };", disabled: f.object.country.states.empty? } %>
+      <% else %>
+        <div>
+          <em>No country set.</em>
+        </div>
+      <% end %>
+      </span>
+    <%= error_message_on f.object, :state_id %>
+  <% end %>
+
+  <%= field_container f.object, :phone, class: ["form-group", "#{type}-row"] do %>
+    <%= f.label :phone, Spree.t(:phone) %>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">+569</div>
+      </div>
+      <%= f.number_field :phone, class: 'form-control' %>
+    </div>
+    <%= error_message_on f.object, :phone %>
+  <% end %>
+
+
+  <%= field_container f.object, :unidad, class: ["form-group", "#{type}-row"] do %>
+    <%= f.label :unidad, Spree.t(:unidad) %>
+    <%= f.text_field :unidad, class: 'form-control' %>
+    <%= error_message_on f.object, :unidad %>
+  <% end %>
+
+  <% if s_or_b == 'b' %>
+    <%= field_container f.object, :purchase_order_number, class: ["form-group", "#{type}-row"] do %>
+      <%= f.label :purchase_order_number, Spree.t(:purchase_order_number) %>
+      <%= f.text_field :purchase_order_number, class: 'form-control' %>
+      <%= error_message_on f.object, :purchase_order_number %>
+    <% end %>
+  <% end %>
+</div>
+
+<% content_for :head do %>
+  <%= javascript_tag do %>
+    $(document).ready(function(){
+      $('span#<%= s_or_b %>country .select2').on('change', function() { update_state('<%= s_or_b %>'); });
+    });
+  <% end %>
+<% end %>

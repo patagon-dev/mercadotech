@@ -1,0 +1,58 @@
+<div class='row'>
+  <div class='col-12 col-md-6' data-hook="admin_user_codigo_field" >
+    <%= f.field_container :codigo, class: ['form-group'] do %>
+      <%= f.label :codigo, Spree.t(:codigo) %>
+      <%= f.text_field :codigo, class: 'form-control' %>
+      <%= f.error_message_on :codigo %>
+    <% end %>
+  </div>
+
+  <div class='col-12 col-md-6' data-hook="admin_user_nombres_field" >
+    <%= f.field_container :nombres, class: ['form-group'] do %>
+      <%= f.label :nombres, Spree.t(:nombres) %>
+      <%= f.text_field :nombres, class: 'form-control' %>
+      <%= f.error_message_on :nombres %>
+    <% end %>
+  </div>
+
+  <div class='col-12 col-md-6' data-hook="admin_user_apellidos_field" >
+    <%= f.field_container :apellidos, class: ['form-group'] do %>
+      <%= f.label :apellidos, Spree.t(:apellidos) %>
+      <%= f.text_field :apellidos, class: 'form-control' %>
+      <%= f.error_message_on :apellidos %>
+    <% end %>
+  </div>
+
+  <div class='col-12 col-md-6' data-hook="admin_user_telefono_field" >
+    <%= f.field_container :telefono, class: ['form-group'] do %>
+      <%= f.label :telefono, Spree.t(:telefono) %>
+      <%= f.text_field :telefono, class: 'form-control' %>
+      <%= f.error_message_on :telefono %>
+    <% end %>
+  </div>
+
+  <div class='col-12 col-md-6' data-hook="admin_user_celular_field" >
+    <%= f.field_container :celular, class: ['form-group'] do %>
+      <%= f.label :celular, Spree.t(:celular) %>
+      <%= f.text_field :celular, class: 'form-control' %>
+      <%= f.error_message_on :celular %>
+    <% end %>
+  </div>
+
+  <div class='col-12 col-md-6' data-hook="admin_user_organismo_field" >
+    <%= f.field_container :organismo, class: ['form-group'] do %>
+      <%= f.label :organismo, Spree.t(:organismo) %>
+      <%= f.text_field :organismo, class: 'form-control' %>
+      <%= f.error_message_on :organismo %>
+    <% end %>
+  </div>
+
+  <div class='col-12 col-md-6' data-hook="admin_user_rut_unidad_field" >
+    <%= f.field_container :rut_unidad, class: ['form-group'] do %>
+      <%= f.label :rut_unidad, Spree.t(:rut_unidad) %>
+      <%= f.text_field :rut_unidad, class: 'form-control' %>
+      <%= f.error_message_on :rut_unidad %>
+    <% end %>
+  </div>
+
+</div>

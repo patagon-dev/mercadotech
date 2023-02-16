@@ -1,0 +1,36 @@
+<!-- You can override this template to design your own header. -->
+<table class="row header">
+  <tr>
+    <td class="center" align="center">
+      <center>
+
+        <table class="container">
+          <tr>
+            <td class="wrapper last">
+
+              <table class="twelve columns">
+                <tr>
+                  <td class="twelve sub-columns last">
+                    <% url = URI(@current_store.mailer_logo&.blob&.url) %>
+                    <% s3_logo_url = "#{url.scheme}://#{url.host}/#{@current_store.mailer_logo.blob.key}" if url.present? %>
+                    <% store_logo = @current_store.mailer_logo&.attached? ? s3_logo_url : Spree::Config.logo %>
+                    <% if frontend_available? %>
+                      <%= link_to @current_store.url, class: 'template-label' do %>
+                        <%= image_tag store_logo, class: 'logo', alt: @current_store.name, title: @current_store.name %>
+                      <% end %>
+                    <% else %>
+                      <%= image_tag store_logo, class: 'logo', alt: @current_store.name, title: @current_store.name %>
+                    <% end %>
+                  </td>
+                  <td class="expander"></td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+      </center>
+    </td>
+  </tr>
+</table>

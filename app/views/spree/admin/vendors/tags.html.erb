@@ -1,0 +1,24 @@
+<% content_for :page_title do %>
+  <%= "#{@vendor.name} / #{Spree.t(:product_page_tabs)}" %>
+<% end %>
+
+<% if @vendor.tags.any? %>
+  <% @vendor.tags.each do |tag| %>
+    <p>
+      <span class="p-2 text-white" style='border-radius: 4px; background: <%= tag.color %>'><%= tag.text %></span>
+      <%= link_to_with_icon 'delete', nil, remove_tags_admin_vendor_path(tag_id: tag.id), method: :delete, remote: true %>
+      <br/>
+    </p>
+  <% end %>
+<% end %>
+
+<%= form_for [:admin, @vendor], url: add_tags_admin_vendor_path, method: :post, remote: true do |f| %>
+  <fieldset>
+    <div class='d-flex'>
+      <%= text_field_tag 'tags[text]', nil , class: 'form-control m-2', placeholder: 'Add Tag', required: true %>
+      <%= select_tag 'tags[color]', options_for_select([['Blue', '#47a3e8'], ['Red', '#e4102d'], ['Green', '#78b13f'], ['Orange', '#f8993d']]), class: 'form-control m-2' %>
+      <%= submit_tag '+' , class: 'btn btn-success m-2' %>
+    </div>
+    <%= render partial: 'spree/admin/shared/vendor_admin_side_tabs', locals: { current: 'tags'} %>
+  </fieldset>
+<% end %>

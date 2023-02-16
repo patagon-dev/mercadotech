@@ -1,0 +1,18 @@
+Hola,
+
+<BR/>
+<p>
+Te agradeceríamos si puedes dejar un comentario o reseña respecto del producto que compraste hace unos días.
+</p>
+<p>
+Puedes escribir acerca de lo bueno o malo del producto, asi podrás ayudar a otros que buscan información.
+</p>
+<% @products.each do |product| %>
+<p>
+ <a href="<%= "#{spree.root_url}products/#{product.slug}/reviews/new" %>"><%= product.name %></a>
+</p>
+<% end %>
+<BR/>
+Muchas Gracias!
+<BR/>
+PD: Mensualmente sorteamos accesorios (audífonos, teclados, mouses) entre los mejores comentarios ! Participa !

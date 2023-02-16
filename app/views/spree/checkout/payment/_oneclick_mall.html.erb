@@ -1,0 +1,37 @@
+<p>
+  <%= Spree.t(:webpay_oneclick_redirect) %>
+</p>
+
+<% if @order.user.webpay_oneclick_mall_users.subscribed.any? %>
+  <%= Spree.t(:webpay_saved_cards) %>
+  <% @order.user.webpay_oneclick_mall_users.subscribed.each do |oneclick_user| %>
+    <div class='my-3'>
+      <div class='mb-3'> 
+        <h6><%= radio_button_tag("oneclick_user_id", oneclick_user.id, oneclick_user.default, required: true) %><%= label_tag "oneclick_user_id_#{oneclick_user.id}", oneclick_user.card_number %> <%= Spree.t(:default) if oneclick_user.default %></h6>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if Rails.env.development? %>
+  Parámetros a enviar a WS pagos:
+  <dl>
+  <dt>TBK_TIPO_TRANSACCION: </dt>
+    <dd>TR_NORMAL</dd>
+
+    <dt>TBK_ORDEN_COMPRA: </dt>
+    <dd><%= @order.number %></dd>
+
+    <dt>TBK_ID_SESION</dt>
+    <dd><%= Digest::MD5.hexdigest("#{@order.number}#{@order.payments.count}") %></dd>
+
+    <dt>TBK_MONTO: </dt>
+    <dd><%= @order.webpay_ws_mall_amount %></dd>
+
+    <dt>TBK_URL_CONFIRMACION</dt>
+    <dd><%= webpay_ws_mall_confirmation_url(:protocol => "https") %></dd>
+
+    <dt>TBK_URL_EXITO</dt>
+    <dd><%= webpay_ws_mall_success_url(:protocol => "https") %></dd>
+  </dl>
+<% end %>

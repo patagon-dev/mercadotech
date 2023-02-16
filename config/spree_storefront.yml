@@ -1,0 +1,207 @@
+mercadotech:
+  banner_image: 'homepage/mercadotech/main_banner.jpg'
+  image_src_set: 'homepage/mercadotech/main_banner'
+  promo_banner_left_image: 'homepage/mercadotech/promo_banner_left.jpg'
+  promo_left_image_src_set: 'homepage/mercadotech/promo_banner_left'
+  promo_banner_right_image: 'homepage/mercadotech/promo_banner_right.jpg'
+  promo_right_image_src_set: 'homepage/mercadotech/promo_banner_right'
+  category_banner_lower_image: 'homepage/mercadotech/category_banner_lower.jpg'
+  category_lower_image_src_set: 'homepage/mercadotech/category_banner_lower'
+  category_banner_upper_image: 'homepage/mercadotech/category_banner_upper.jpg'
+  category_upper_image_src_set: 'homepage/mercadotech/category_banner_upper'
+  big_category_banner_image: 'homepage/mercadotech/ram.jpg'
+  big_category_image_src_set: 'homepage/mercadotech/ram'
+  spree_homepage_banner_url: 'https://www.mercadotech.cl/t/audio-y-video/audifonos?manufacturer=Kingston'
+  spree_homepage_category_banner_upper_url: 'tecnologia/partes-y-piezas/impresoras'
+  spree_homepage_category_banner_lower_url: 'tecnologia/equipos/all-in-one'
+  spree_homepage_promo_banner_left_url: 'gamer'
+  spree_homepage_promo_banner_right_url: 'audio-y-video/domotica'
+  spree_homepage_big_category_banner_url: 'tecnologia/partes-y-piezas/memorias-ram'
+  spree_homepage_read_more_url: 'https://www.mercadoempresas.cl/compra-rapido-y-simple/'
+  spree_fav_icon_url: 'favicon.ico'
+  spree_homepage_banner_text: 'Nuevos Productos'
+  spree_homepage_banner_url_text: 'VER MÁS'
+  spree_homepage_category_banner_upper_text: 'IMPRESION'
+  spree_homepage_category_banner_lower_text: 'TODO EN UNO'
+  spree_homepage_promo_banner_left_small_text: 'Zona Gamer'
+  spree_homepage_promo_banner_left_big_text: 'Gamer Zone'
+  spree_homepage_promo_banner_right_small_text: 'Domótica'
+  spree_homepage_promo_banner_right_big_text: 'Seguridad y Confianza'
+  spree_homepage_big_category_banner_text: '¿+RAM?'
+  spree_homepage_fashion_trends_box_summer_text: '100% enfocados en el Usuario Final'
+  spree_homepage_fashion_trends_box_fashion_trends_text: 'COMPRA RÁPIDO Y SIMPLE'
+  spree_homepage_fashion_trends_box_description_text: 'Nos enfocamos en una plataforma simple, rápida y amigable.'
+  spree_homepage_read_more_text: 'Leer más'
+  navigation:
+    - title: Audio y Video
+      url: /t/audio-y-video
+      items:
+        - :subtitle: Accesorios
+          :nav_items:
+            - :title: Adaptadores
+              :url: /t/tecnologia/accesorios/adaptadores
+            - :title: Cables
+              :url: /t/tecnologia/accesorios/cables
+        - :subtitle: Audio
+          :nav_items:
+            - :title: Audífonos
+              :url: /t/audio-y-video/audifonos
+            - :title: Micrófonos
+              :url: /t/tecnologia/accesorios/accesorios/microfonos
+            - :title: Parlantes
+              :url: /t/audio-y-video/parlantes
+        - :subtitle: Hogar
+          :nav_items:
+            - :title: Domótica
+              :url: /t/audio-y-video/domotica
+            - :title: Gamer Zone
+              :url: /t/gamer
+            - :title: Videojuegos
+              :url: /t/juegos/videojuegos
+        - :subtitle: Video
+          :nav_items:
+            - :title: Cámaras de Fotos
+              :url: /t/audio-y-video/fotografia/camaras-de-fotos
+            - :title: Cámaras Web
+              :url: /t/audio-y-video/video/camaras-web
+      promo_banners:
+        - subtitle: Kingston
+          title: Audífonos
+          url: /t/audio-y-video/audifonos?manufacturer=Kingston
+          image: 'https://assets.mercadoempresas.cl/meganav/hyperx1.jpg'
+    - title: Computación
+      url: /t/tecnologia
+      items:
+        - :subtitle: Accesorios
+          :nav_items:
+            - :title: Accesorios
+              :url: /t/tecnologia/accesorios/accesorios
+            - :title: Bolsos, Mochilas
+              :url: /t/tecnologia/accesorios/bolsos-y-mochilas
+            - :title: Cables
+              :url: /t/tecnologia/accesorios/cables
+            - :title: Ergonomía
+              :url: /t/tecnologia/accesorios/ergonomia
+            - :title: Mouse
+              :url: /t/tecnologia/accesorios/mouse
+            - :title: Teclados
+              :url: /t/tecnologia/accesorios/teclados
+        - :subtitle: Equipos
+          :nav_items:
+            - :title: All in One (AIO)
+              :url: /t/tecnologia/equipos/all-in-one
+            - :title: Notebooks
+              :url: /t/tecnologia/equipos/notebooks
+            - :title: PC Escritorio
+              :url: /t/tecnologia/equipos/pc-escritorio
+        - :subtitle: Externos
+          :nav_items:
+            - :title: Almacenamiento
+              :url: /t/tecnologia/partes-y-piezas/almacenamiento
+            - :title: Discos Externos
+              :url: /t/tecnologia/partes-y-piezas/almacenamiento/discos-duros/discos-externos
+            - :title: Impresoras
+              :url: /t/tecnologia/partes-y-piezas/impresoras
+            - :title: Monitores
+              :url: /t/tecnologia/partes-y-piezas/monitores/monitores
+            - :title: Proyectores
+              :url: /t/tecnologia/partes-y-piezas/proyectores/proyectores
+            - :title: Routers & Switch
+              :url: /t/tecnologia/partes-y-piezas/routers-and-switch
+            - :title: Scanners
+              :url: /t/tecnologia/partes-y-piezas/scanners
+        - :subtitle: Internos
+          :nav_items:
+            - :title: Discos Duros
+              :url: /t/tecnologia/partes-y-piezas/almacenamiento/discos-duros/discos-internos
+            - :title: Gabinetes
+              :url: /t/tecnologia/componentes-pc/gabinetes/gabinetes
+            - :title: Fuente de Poder
+              :url: /t/tecnologia/componentes-pc/fuente-de-poder
+            - :title: Memorias RAM
+              :url: /t/tecnologia/partes-y-piezas/memorias-ram
+            - :title: Placas Madres
+              :url: /t/tecnologia/componentes-pc/placas-madres
+            - :title: Procesadores
+              :url: /t/tecnologia/componentes-pc/procesadores/amd
+            - :title: Tarjetas de Video
+              :url: /t/tecnologia/componentes-pc/tarjetas-de-video
+        - :subtitle: Suministros
+          :nav_items:
+            - :title: Brother
+              :url: /t/tecnologia/suministros/brother
+            - :title: Canon
+              :url: /t/tecnologia/suministros/canon
+            - :title: HP
+              :url: /t/tecnologia/suministros/hp
+            - :title: Epson
+              :url: /t/tecnologia/suministros/epson
+            - :title: Xerox
+              :url: /t/tecnologia/suministros/xerox
+    - title: Datacenter
+      url: /t/datacenter
+      items:
+        - :subtitle: Equipos
+          :nav_items:
+            - :title: Servidores
+              :url: /t/datacenter/equipos/servidores-rackeables
+            - :title: Storage
+              :url: /t/datacenter/equipos/storage-rackeables
+        - :subtitle: Redes
+          :nav_items:
+            - :title: Accesorios
+              :url: /t/datacenter/redes/accesorios
+            - :title: Adaptadores
+              :url: /t/datacenter/redes/adaptadores
+            - :title: KVM
+              :url: /t/datacenter/redes/kvm
+            - :title: Firewall
+              :url: /t/datacenter/redes/firewall
+            - :title: Switches
+              :url: /t/datacenter/redes/switches
+            - :title: Tarjetas
+              :url: /t/datacenter/redes/tarjetas-de-red
+            - :title: Routers
+              :url: /t/datacenter/redes/routers
+        - :subtitle: UPS
+          :nav_items:
+            - :title: Baterías
+              :url: /t/datacenter/ups/baterias
+            - :title: Reguladores
+              :url: /t/datacenter/ups/reguladores
+            - :title: UPS
+              :url: /t/datacenter/ups/ups
+        - :subtitle: Accesorios
+          :nav_items:
+            - :title: Accesorios
+              :url: /t/datacenter/accesorios/accesorios
+            - :title: Racks
+              :url: /t/datacenter/accesorios/racks
+    - title: Móvil
+      url: /t/movil
+      items:
+        - :subtitle: Celulares
+          :nav_items:
+            - :title: Android
+              :url: /t/movil/celulares/android
+            - :title: Iphone
+              :url: /t/movil/celulares/iphone
+        - :subtitle: Tablets
+          :nav_items:
+            - :title: Tablets
+              :url: /t/movil/tablets/tablets
+        - :subtitle: Accesorios
+          :nav_items:
+            - :title: Android
+              :url: /t/movil/accesorios/android
+            - :title: Iphone
+              :url: /t/movil/accesorios/iphone
+            - :title: Smartwatch
+              :url: /t/movil/smartwatch
+            - :title: Otros
+              :url: /t/movil/accesorios/otros
+      promo_banners:
+        - subtitle: Android
+          title: SmartPhones
+          url: /t/movil/celulares/android
+          image: 'https://assets.mercadoempresas.cl/meganav/smartphone1.jpg'

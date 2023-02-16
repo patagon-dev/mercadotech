@@ -1,0 +1,10 @@
+<% if @competitors_data.present? && @discount_label.present? %>
+  <div class="comp-dropdown">
+    <div class="comp-dropbtn"><%= "#{@discount_label} %" %></div>
+    <div class="comp-dropdown-content">
+      <% @competitors_data.each do |comp| %>
+        <span><%= image_tag(comp[1]['icon_image'], size: '16x16')%><%= link_to formatted_price(comp[1]['price']), comp[1]['url_link'], target: :_blank %></span>
+      <% end %>
+    </div>
+  </div>
+<% end %>

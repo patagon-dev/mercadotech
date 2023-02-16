@@ -1,0 +1,10 @@
+$font-size-base-px-ov: 16px; 
+$font-size-base-ov: 1rem;
+
+@function font-px-to-rem-ov($target-font-size-px-ov: $font-size-base-px-ov) {
+  @return $font-size-base-ov * ( $target-font-size-px-ov / $font-size-base-px-ov );
+}
+.tt-hint{
+  font-size: font-px-to-rem-ov(22px);
+  width: 100%;
+}

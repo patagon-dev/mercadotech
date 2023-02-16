@@ -1,0 +1,41 @@
+<% if @user && @user.webpay_oneclick_mall_users.subscribed.any? %>
+    <div class="row">
+      <div class="col-md-12 d-flex">
+        <% @user.webpay_oneclick_mall_users.subscribed.each do |oneclick_user| %>
+          <div class="card my-3 mr-2">
+            <div class="card-body position-relative">
+              <div><%= Spree.t("oneclick_auth_code") %>: <%= oneclick_user.authorization_code %></div>
+              <div><%= Spree.t("oneclick_card_type") %>: <%= oneclick_user.card_type %></div>
+              <div><%= Spree.t("oneclick_card_number") %>: <%= oneclick_user.card_number %></div>
+              <div><%= Spree.t("oneclick_card_expiration_date") %>: <%= oneclick_user.card_expiration_date || "No disponible" %></div>
+              <div><%= Spree.t("oneclick_created_at") %>: <%= l(oneclick_user.created_at, format: :default) %></div>
+              <%= form_with url: spree.update_card_path, method: :post do |form| %>
+                <%= form.hidden_field :oneclick_user_id, value: oneclick_user.id %>
+                <% if oneclick_user.is_credit_card? %>
+                  <div>
+                    <%= Spree.t("oneclick_shares") %>: <%= select_tag :shares_number, options_for_select(Tbk::WebpayOneclickMall::User::SHARES_NUMBERS, oneclick_user.shares_number)%>
+                  </div>
+                <% end %>
+                <div>
+                  <%= Spree.t("oneclick_default") %>: <%= form.check_box :oneclick_default, {checked: oneclick_user.default} %>
+                </div>
+                <div class="text-center"><%= form.submit Spree.t('update'), class: 'btn btn-primary' %></div>
+              <% end %>
+            </div>
+            <div class="card-delete-btn">
+              <%= form_with url: spree.card_unsubscription_path, method: :post do |form| %>
+                <%= form.hidden_field :oneclick_user_id, value: oneclick_user.id %>
+                <%= form.submit Spree.t('oneclick_unsubscribe'), class: 'btn btn-danger' %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+<% else %>
+  <div class="row">
+    <div class="col-md-12">
+      No tiene subscripción activa para realizar pagos con Webpay Oneclick.
+    </div>
+  </div>
+<% end %>

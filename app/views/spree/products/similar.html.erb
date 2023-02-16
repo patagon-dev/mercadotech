@@ -1,0 +1,7 @@
+<% if @similar_products.any? %>
+  <div id="similar-products">
+    <div class="product-details-similar">
+      <%= render 'spree/shared/carousel_4_products', id: 'related-products-carousel', products: @similar_products %>
+    </div>
+  </div>
+<% end %>

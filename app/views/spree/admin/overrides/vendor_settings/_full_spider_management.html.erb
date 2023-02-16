@@ -1,0 +1,10 @@
+<%= link_to Spree.t(:manage_full_spider, scope: :spider_management), manage_spider_admin_vendor_settings_path(vendor_id: @vendor&.id, spider_name: @vendor&.full_spider ) , class: 'btn btn-info ml-2' %>
+<% log_full = @vendor.scrapinghub_error_files.attachments.select { |f| ["#{@vendor&.full_spider}.json"].include?(f.blob.filename.to_s)} %>
+<% if log_full.present? %>
+  <% json_full_import_url = Rails.application.routes.url_helpers.rails_blob_path(log_full[0], disposition: 'inline', only_path: true) %>
+  <%= link_to Spree.t(:download_full_import_errors, scope: :spider_management), json_full_import_url, class: 'btn btn-danger ml-2' %>
+<% else %>
+  <span class="alert alert-danger" role="alert">
+    <%= Spree.t(:no_error_log, scope: :spider_management) %>
+  </span>
+<% end %>

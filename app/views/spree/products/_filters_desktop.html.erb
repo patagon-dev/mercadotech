@@ -1,0 +1,17 @@
+<%
+  aggregations = @products.aggs
+  @filters = Spree::Core::SearchkickCustomFilters.applicable_filters(aggregations)
+%>
+
+<%= form_tag '', method: :get, id: 'sidebar_products_search' do %>
+  <%= hidden_field_tag 'per_page', params[:per_page] %>
+  <%= hidden_field_tag 'keywords', params[:keywords] %>
+  <div id="plp-filters-accordion" class="d-none d-lg-block pr-5 position-sticky h-100 plp-filters" data-hook="taxon_sidebar_navigation">
+    <% @filters.each do |filter| %>
+      <% next if filter[:options].empty? %>
+      <%= render partial: "spree/shared/es_filter", locals: { filter: filter, filter_name: filter[:name]&.downcase&.gsub(/\s+/, "")} %>
+    <% end %>
+    <%= submit_tag Spree.t(:filter), :name => nil, :class => 'btn btn-primary mt-2' %>
+    <%= link_to Spree.t('plp.clear_all')&.capitalize, { action: params[:action], keywords: params[:keywords] }, class: 'btn btn-outline-primary mt-2' %>
+  </div>
+<% end %>

@@ -1,0 +1,41 @@
+<% content_for :page_title do %>
+  <%= "#{@vendor.name}" %>
+<% end %>
+
+<% if @vendor.vendor_terms.any? %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th><%= Spree.t(:name, scope: :vendor_term) %></th>
+        <th><%= Spree.t(:value, scope: :vendor_term) %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @vendor.vendor_terms.each do |term|%>
+        <tr>
+          <td><%= term&.name %></td>
+          <td><%= raw term&.value %></td>
+          <td class="actions text-center">
+            <a class="btn btn-danger btn-sm delete-resource icon-link with-tip action-delete" data-remote="true" rel="nofollow" data-method="delete" href="<%= remove_vendor_term_admin_vendor_path(vendor_term_id: term.id) %>" data-original-title="" title=""><span class="icon icon-delete"></span> <span class="text"></span></a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-warning">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::VendorTerm)) %>,
+  </div>
+<% end %>
+
+<%= form_for [:admin, @vendor], url: add_vendor_term_admin_vendor_path, method: :post, remote: true do |f| %>
+  <fieldset>
+    <div class='d-flex'>
+      <%= text_field_tag 'vendor_term[name]', nil , class: 'form-control m-2', placeholder: Spree.t(:add_title, scope: :vendor_term), required: true %>
+      <%= text_field_tag 'vendor_term[value]', nil , class: 'form-control m-2', placeholder: Spree.t(:add_description, scope: :vendor_term), required: true %>
+      <%= submit_tag '+' , class: 'btn btn-success m-2' %>
+    </div>
+    <%= render partial: 'spree/admin/shared/vendor_admin_side_tabs', locals: { current: 'vendor_terms'} %>
+  </fieldset>
+<% end %>

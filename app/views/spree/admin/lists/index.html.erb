@@ -1,0 +1,44 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:title, scope: :list) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_list), new_object_url, class: "btn-success", icon: 'add', id: 'admin_new_list_link' %>
+<% end if can? :create, Spree::List %>
+
+<% if @lists.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= Spree.t(:id, scope: :list) %></th>
+        <th><%= Spree.t(:name, scope: :list) %></th>
+        <th><%= Spree.t(:store, scope: :list) %></th>
+        <th><%= Spree.t(:subscribers, scope: :list) %></th>
+        <th><%= Spree.t(:sync_now) %> </th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @lists.each do |list|%>
+        <tr>
+          <td><%= list.key %></td>
+          <td><%= list.name %></td>
+          <td><%= list.store&.name %></td>
+          <td><%= list.subscribers_count %></td>
+          <td>
+            <%= link_to Spree.t(:sync_now), sync_subscribers_admin_list_path(list), method: :get, class: 'btn btn-success ml-2' %>
+          </td>
+          <td class="actions text-right">
+            <%= link_to_edit(list, no_text: true) if can? :edit, list %>
+            <%= link_to_delete(list, no_text: true) if can? :destroy, list %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-warning">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::List)) %>,
+    <%= link_to(Spree.t(:add_one), new_object_url) if can? :create, Spree::List %>!
+  </div>
+<% end %>

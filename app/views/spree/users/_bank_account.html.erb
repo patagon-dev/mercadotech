@@ -1,0 +1,25 @@
+<div class="row">
+  <address class="mb-0 col-10">
+    <div><strong><%= Spree.t(:bank_name, scope: :bank_account) %></strong><%= bank_account.bank.name %></div>
+    <div><strong><%= Spree.t(:bank_code, scope: :bank_account) %></strong><%= bank_account.code %></div>
+    <div><strong><%= Spree.t(:email, scope: :bank_account) %></strong><%= bank_account.email %></div>
+    <div><strong><%= Spree.t(:rut, scope: :bank_account) %></strong><%= bank_account.rut %></div>
+    <div><strong><%= Spree.t(:account_number, scope: :bank_account) %></strong><%= bank_account.account_number %></div>
+    <div><strong><%= Spree.t(:customer_name, scope: :bank_account) %></strong><%= bank_account.name %></div>
+    <div><strong><%= Spree.t(:default) if bank_account.is_default %></strong></div>
+  </address>
+  <div class="col-2">
+    <div class="row">
+      <div class="col-5 offset-md-2 order-1">
+        <%= link_to spree.edit_bank_account_path(bank_account), method: :get, class: 'address-button', data: { hook: 'edit_bank_account' } do %>
+          <%= inline_svg_tag 'edit.svg', class: "delete-address-img" %>
+        <% end %>
+      </div>
+      <div class="col-5 offset-2 offset-md-0 order-0">
+        <div class="bg-transparent border-0 p-0 m-0 address-button delete-button js-delete-bank-account-link" data-bankaccount="<%= spree.bank_account_path(bank_account) %>">
+          <%= inline_svg_tag 'garbage_2.svg', class: "delete-address-img" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

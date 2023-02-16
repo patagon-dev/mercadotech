@@ -1,0 +1,20 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'spree/return_authorization', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<div class="p-5">
+  <h3 class="mb-4 mt-2"><%= Spree.t(:new_return_request, scope: :return_authorizations_view) %></h3>
+
+  <%= form_for [@order, @return_authorization] do |f| %>
+    <fieldset>
+      <%= render partial: 'form', locals: { f: f } %>
+        <div class="form-actions" data-hook="buttons" class="<%= all_item_returned? %>">
+          <% if (@form_return_items.any? { |rt| !rt.inventory_unit.return_authorizations.present? }) && @order.returnable_period %>
+            <%= button Spree.t(:create), 'save' %>
+            <span class="or"><%= Spree.t(:or) %></span>
+          <% end %>
+          <%= button_link_to Spree.t('actions.cancel'), spree.order_url(@order), icon: 'delete' %>
+        </div>
+    </fieldset>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<div class="col-lg-11 mx-auto">
+  <h3 class="spree-mb-large spree-mt-large spree-header"><%= Spree.t(:log_in_to_continue) %></h3>
+  <form method="get" action="/saml/sign_in">
+    <button id="account-button" type="submit" class="btn btn-primary btn-block spree-btn mt-2"><%= Spree.t('nav_bar.log_in') %></button>
+  </form>
+
+  <% if spree.respond_to?(:recover_password_path) %>
+    <div class="text-center forgot-password mb-4">
+      <%= link_to Spree.t(:forgot_password), spree.recover_password_path %>
+    </div>
+  <% end %>
+</div>

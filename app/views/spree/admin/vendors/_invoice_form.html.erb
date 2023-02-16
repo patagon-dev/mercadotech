@@ -1,0 +1,34 @@
+<%= render partial: 'spree/shared/error_messages', locals: { target: @vendor } %>
+
+<div class="form-group">
+  <%= f.field_container :invoice_options do %>
+    <%= f.label :invoice_options %>
+    <%= f.select :invoice_options, Spree::Vendor.invoice_options.keys.map{ |x| [x.titleize, x] }, {}, class: 'form-control' %>
+  <% end %>
+</div>
+
+<div class="superfactura <%= f.object.manual_upload? ? 'd-none' : '' %>">
+  <div class="form-group">
+    <%= f.field_container :superfactura_login do %>
+      <%= f.label :superfactura_login %>
+      <%= f.text_field :superfactura_login, class: 'form-control' %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.field_container :superfactura_password do %>
+      <%= f.label :superfactura_password %>
+      <%= f.password_field :superfactura_password, class: 'form-control' %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.field_container :superfactura_environment do %>
+      <%= f.label :superfactura_environment %>
+      <%= f.text_field :superfactura_environment, class: 'form-control' %>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: 'spree/admin/shared/vendor_admin_side_tabs', locals: { current: 'invoice'} %>
+

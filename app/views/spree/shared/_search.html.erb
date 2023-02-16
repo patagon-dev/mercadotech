@@ -1,0 +1,20 @@
+<%= form_tag spree.products_path, method: :get, class: "py-md-1 d-flex align-items-center" do %>
+  <%= search_field_tag :keywords,
+                       params[:keywords],
+                       placeholder: Spree.t(:search),
+                       autofocus: true,
+                       autocomplete: 'off',
+                       class: " border-0 p-3"
+  %>
+  <label class="m-0">
+    <input type="submit">
+    <%= icon(name: 'search',
+             classes: 'd-md-none',
+             width: 20,
+             height: 20) %>
+    <%= icon(name: 'search',
+             classes: 'd-none d-md-inline',
+             width: 27,
+             height: 27) %>
+  </label>
+<% end %>

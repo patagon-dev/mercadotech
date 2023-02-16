@@ -1,0 +1,55 @@
+<div id="checkout" data-hook>
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
+
+  <div class="row align-items-center flex-column checkout-header" data-hook="checkout_header">
+    <div class="text-uppercase checkout-header-title">
+      <h1 data-hook="checkout_title"><%= Spree.t(:checkout) %></h1>
+    </div>
+  </div>
+
+  <div class="row" data-hook="checkout_content">
+    <div class="col-md-9" data-hook="webpay_field_wrapper">
+        <fieldset id="billing" data-hook>
+          <legend align="center"><%= Spree.t(:payment_information) %></legend>
+
+          <h2><%= "#{@rejected ? Spree.t(:webpay_ws_payment_rejected) : Spree.t(:webpay_ws_payment_incompleted)} Nº #{@order&.number}" %></h2>
+        <hr class="clear" />
+        <p>Las posibles causas de este rechazo son:</p>
+
+        <ul>
+          <li>
+            <span>Excede Límite Bancario para pago a nuevas cuentas. <b>Solución:</b> Comprar producto de <a href="https://www.mercadotech.cl/products/producto-demo-para-pagos-con-debito">1 peso</a> hoy, y así podrá comprar al día siguiente el producto sin restricción de su Banco.</span>
+          </li>
+          <li>
+            <span>Error en el ingreso de los datos de su tarjeta de crédito o Debito (fecha y/o código de seguridad).</span>
+          </li>
+          <li>
+            <span>Su tarjeta de crédito o debito no cuenta con el cupo necesario para cancelar la compra.</span>
+          </li>
+          <li>
+            <span>Tarjeta aún no habilitada en el sistema financiero. </span>
+          </li>
+        </ul>
+      </fieldset>
+
+        <hr class="clear" />
+
+        <div class="form-buttons" data-hook="buttons">
+          <%= link_to Spree.t(:previous), checkout_state_path('payment'), :class => 'continue button primary' %>
+          <script>Spree.disableSaveOnClick();</script>
+        </div>
+    </div>
+
+    <% if @order.present? %>
+      <div id="checkout-summary" class="col-md-12 col-lg-auto h-100 mx-4" data-hook="checkout_summary_box">
+        <%= render :partial => 'spree/checkout/summary', :locals => { :order => @order } %>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>
+
+<% if I18n.locale != :en %>
+  <script src="<%= assets_prefix %>/jquery.validate/localization/messages_<%= I18n.locale %>.js"></script>
+<% end %>

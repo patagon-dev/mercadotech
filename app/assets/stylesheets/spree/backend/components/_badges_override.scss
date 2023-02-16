@@ -1,0 +1,74 @@
+$brown: #D2B48C;
+$purple: #800080;
+$black: #000000;
+
+// Light Blue
+.badge-ready {
+  @include badge-variant($info);
+  @include hover-focus {
+    color: color-yiq($info);
+    background-color: darken($info, 10%);
+  }
+}
+
+// Red
+.badge-canceled {
+  @include badge-variant($danger);
+  @include hover-focus {
+    color: color-yiq($danger);
+    background-color: darken($danger, 10%);
+  }
+}
+
+// Orange
+.badge-partial {
+  @include badge-variant($orange);
+  @include hover-focus {
+    color: color-yiq($orange);
+    background-color: darken($orange, 10%);
+  }
+}
+
+// Brown
+.badge-pickup {
+  @include badge-variant($brown);
+  @include hover-focus {
+    color: color-yiq($orange);
+    background-color: darken($brown, 10%);
+  }
+}
+
+// Grey
+.badge-packed {
+  @include badge-variant($secondary);
+  @include hover-focus {
+    color: color-yiq($orange);
+    background-color: darken($secondary, 10%);
+  }
+}
+
+// Purple
+.badge-waiting {
+  @include badge-variant($purple);
+  @include hover-focus {
+    color: color-yiq($warning);
+    background-color: darken($purple, 10%);
+  }
+}
+
+// Black
+.badge-attention {
+  @include badge-variant($black);
+  @include hover-focus {
+    color: color-yiq($danger);
+    background-color: darken($black, 10%);
+  }
+}
+
+.badge-refund_pending {
+  @include badge-variant($warning);
+}
+
+.badge-refunded {
+  @include badge-variant($success);
+}

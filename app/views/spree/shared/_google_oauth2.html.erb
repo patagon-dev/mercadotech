@@ -1,0 +1,6 @@
+<div class='text-center my-4'>
+  <%= link_to path_for_omniauth(@spree_user, method.provider), id: method.provider.to_url do %>
+    <%= image_tag('google-logo.png') %>
+    <span class='ml-2' style='color: rgb(80, 95, 121) !important; font-weight: bold;'>Login con Google</span>
+  <% end %>
+</div>

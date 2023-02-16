@@ -1,0 +1,110 @@
+<div class='order-show container d-flex flex-column align-items-center flex-lg-wrap flex-lg-row justify-content-center' id="order_summary" data-hook>
+  <% if order_just_completed?(@order) %>
+    <%= icon(name: 'check-mark-circle',
+             classes: 'd-block d-lg-none mx-auto order-show-check-mark',
+             width: 56,
+             height: 56) %>
+    <%= icon(name: 'check-mark-circle',
+             classes: 'd-none d-lg-block mx-auto order-show-check-mark',
+             width: 102,
+             height: 102) %>
+    <h5 class="w-100 text-center"><%= Spree.t(:order_success) %></h5>
+    <p class="order-show-explain w-100 text-center"><%= Spree.t(:order_success_explain) %></p>
+  <% end %>
+
+  <p class="order-show-number text-uppercase w-100 text-center">
+    <%= accurate_title %> / <%= @order.completed_at.to_date.to_s(:long) if @order.completed_at %>
+    <% if ['shipped', 'partial'].include?(@order.shipment_state) && @order.returnable_period %>
+      <%= link_to Spree.t(:rma_request), new_order_return_authorization_path(@order), class: 'ml-5 btn btn-lg btn-primary' %>
+    <% end %>
+  </p>
+  <dl class="w-100 d-lg-flex justify-content-lg-between">
+    <div>
+      <dt class="text-uppercase text-center text-lg-left"><%= Spree.t(:shipping_address) %></dt>
+      <dd class="text-center text-lg-left">
+        <%= render 'spree/shared/address', address: @order.ship_address, s_or_b: 's' %>
+      </dd>
+    </div>
+    <div>
+      <dt class="text-uppercase text-center text-lg-left"><%= Spree.t(:billing_address) %></dt>
+      <dd class="text-center text-lg-left">
+        <td class="account-page-invoice text-center">
+          <b><%= Spree.t(:invoice) %></b>
+          <% @order.invoices.each do |invoice| %>
+            <% next unless invoice.document.attached? %>
+            <% document_path = s3_persisted_url(invoice.document) %>
+            <%= link_to "#{invoice.document.blob.filename.to_s}", document_path, target: '_blank' %><br>
+          <% end %>
+        </td>
+        <%= render 'spree/shared/address', address: @order.bill_address, s_or_b: 'b' %>
+      </dd>
+    </div>
+    <div>
+      <dt class="text-uppercase text-center text-lg-left"><%= Spree.t(:shipping) %></dt>
+      <% @order.shipments.valid.includes(stock_location: [:vendor]).each do |shipment| %>
+        <dd class="text-center text-lg-left">
+          <%= shipment.stock_location&.vendor&.name %><br/>
+          <%= shipment.shipping_method.name %><br/>
+          <%= link_to_tracking(shipment) if shipment.shipped? %>
+          <% if shipment.shipment_labels.any? %>
+            <% shipment.shipment_labels.each do |label| %>
+              <br/>
+              <%= link_to Spree.t('track_shipment'), label.label_url, target: '_blank' %>
+            <% end %>
+          <% end %>
+        </dd>
+      <% end %>
+    </div>
+    <div>
+      <dt class="text-uppercase text-center text-lg-left"><%= Spree.t(:payment) %></dt>
+      <dd class="text-center text-lg-left">
+        <%= render collection: @order.has_webpay_ws_mall_payment_method? || @order.has_oneclick_mall_payment_method? ? @order.payments : @order.payments.valid, partial: 'spree/shared/payment' %>
+      </dd>
+    </div>
+  </dl>
+  <hr class="w-100 mt-0 mb-4 d-sm-none" />
+  <div class="order-show-line-items d-flex flex-column align-items-center">
+    <% @order.line_items.each do |item| %>
+      <div class="order-show-line-items-line-item d-flex w-100">
+        <%= link_to product_image(item.variant), item.product %>
+        <div class="order-show-line-items-line-item-desc w-100">
+          <span class="order-show-line-items-line-item-desc-name">
+            <%= item.name %>
+          </span>
+          <% if item.product.vendor %>
+            <span class="vendor-name-account-page"><% Spree.t(:vendor) %><%= link_to "#{item.product.vendor.name}", vendor_path(item.product.vendor) %></span>
+          <% end %>
+          <span class="order-show-line-items-line-item-desc-subtitle text-break text-uppercase">
+            <ul class="list-unstyled mb-0">
+              <% item.variant.option_values.sort { |ov| ov.option_type.position }.each do |ov| %>
+                <li><%= "#{ov.option_type.presentation}: #{ov.name.titleize}" %></li>
+              <% end %>
+            </ul>
+          </span>
+          <div class="order-show-line-items-line-item-desc-price">
+            <div class="order-show-line-items-line-item-desc-price-attr-name d-inline d-lg-block">
+              <span><%= Spree.t(:price) %></span>
+            </div>
+            <span class="font-weight-bold"><%= item.single_money.to_html %></span>
+          </div>
+          <div class="order-show-line-items-line-item-desc-quantity">
+            <div class="order-show-line-items-line-item-desc-quantity-attr-name d-inline d-lg-block">
+              <span><%= Spree.t(:quantity) %></span>
+            </div>
+            <span class="order-show-line-items-line-item-desc-quantity-val d-lg-block"><%= item.quantity %></span>
+          </div>
+          <div class="order-show-line-items-line-item-desc-total">
+            <div class="order-show-line-items-line-item-desc-total-attr-name d-inline d-lg-block">
+              <span><%= Spree.t(:total) %></span>
+            </div>
+            <span class="font-weight-bold d-lg-block"><%= item.display_total.to_s %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <hr class="w-100 mt-4 mb-0 d-sm-none" />
+  <div id="checkout-summary" class="w-100" data-hook="checkout_summary_box">
+    <%= render partial: 'spree/checkout/summary', locals: { order: @order } %>
+  </div>
+</div>

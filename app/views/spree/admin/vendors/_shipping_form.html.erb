@@ -1,0 +1,37 @@
+<%= render partial: 'spree/shared/error_messages', locals: { target: @vendor } %>
+<div data-hook="vendor_shipping_fields" >
+  <div data-hook="enviame_vendor_id" >
+    <%= f.field_container :enviame_vendor_id, class: ['form-group'] do %>
+      <%= f.label :enviame_vendor_id, Spree.t(:enviame_vendor_id) %>
+      <%= f.text_field :enviame_vendor_id, class: 'form-control' %>
+      <%= f.error_message_on :enviame_vendor_id %>
+    <% end %>
+  </div>
+
+  <div class="form-check mb-2 ">
+    <%= f.check_box :enable_moova, class: 'form-check-input' %>
+    <%= f.label :enable_moova, class: 'form-check-label' %>
+    <%= f.error_message_on :enable_moova %>
+  </div>
+
+  <div class="moova_creds <%= f.object.enable_moova ? '' : 'd-none' %>">
+    <div data-hook="moova_carrier_api_key_field" >
+      <%= f.field_container :moova_api_key, class: ['form-group'] do %>
+        <%= f.label :moova_api_key, Spree.t(:moova_api_key) %>
+        <%= f.text_field :moova_api_key, class: 'form-control' %>
+        <%= f.error_message_on :moova_api_key %>
+      <% end %>
+    </div>
+
+    <div data-hook="moova_carrier_api_secret_field" >
+      <%= f.field_container :moova_api_secret, class: ['form-group'] do %>
+        <%= f.label :moova_api_secret, Spree.t(:moova_api_secret) %>
+        <%= f.text_field :moova_api_secret, class: 'form-control' %>
+        <%= f.error_message_on :moova_api_secret %>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+<%= render partial: 'spree/admin/shared/vendor_admin_side_tabs', locals: { current: 'shipping'} %>

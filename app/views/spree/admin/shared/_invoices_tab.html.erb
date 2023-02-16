@@ -1,0 +1,8 @@
+<% if can? :index, Spree::Invoice %>
+  <li data-hook='admin_order_tabs_invoices'>
+    <%= link_to_with_icon 'file',
+      Spree::Invoice.human_attribute_name(:invoices),
+      spree.admin_order_invoices_url(@order),
+      class: "#{'active' if current == :invoices} nav-link" %>
+  </li>
+<% end %>

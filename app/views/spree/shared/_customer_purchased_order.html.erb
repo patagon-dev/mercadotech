@@ -1,0 +1,10 @@
+<b><%= vendor.name %></b>
+<div class='my-3'>
+  <div class='mb-3'>
+    <%= Spree.t(:purchase_order_number) %><sup>*</sup> <%= text_field_tag "purchase_order[][purchase_order_number]", nil, class: 'purchased_order_attach' %>
+  </div>
+  <div>
+    <%= Spree.t(:attach_purchased_order) %><sup>*</sup> <%= file_field_tag "purchase_order[][purchase_order]", class: 'purchased_order_attach' %>
+    <%= hidden_field_tag "purchase_order[][vendor_id]", vendor.id %>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+@import 'spree/backend/global/variables';
+@import 'spree/backend/global/mixins';
+
+@import 'bootstrap';
+@import 'glyphicons';
+@import 'spree/backend/shared/glyphicons_urls_fix';
+
+@import 'spree/backend/components/navbar';
+@import 'spree/backend/components/sidebar';
+@import 'spree/backend/components/tables';
+@import 'spree/backend/components/badges';
+@import 'spree/backend/components/badges_override';
+@import 'spree/backend/components/main';
+@import 'spree/backend/components/page_header';
+@import 'spree/backend/components/icons';
+@import 'spree/backend/components/buttons';
+@import 'spree/backend/components/filters';
+@import 'spree/backend/components/navigation';
+@import 'spree/backend/components/taxon_products_view';
+@import 'spree/backend/components/progress';
+@import 'spree/backend/components/spinner';
+
+@import 'spree/backend/plugins/jquery_ui';
+@import 'spree/backend/plugins/flatpickr';
+@import 'spree/backend/plugins/select2_bootstrap4';
+@import 'spree/backend/plugins/select2_custom';
+
+@import 'spree/backend/shared/base';
+@import 'spree/backend/shared/forms';
+
+@import 'spree/backend/views/order_payments';
+@import 'spree/backend/views/product_properties';
+@import 'spree/backend/views/prototypes';

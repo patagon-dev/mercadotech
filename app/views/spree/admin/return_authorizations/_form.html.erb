@@ -1,0 +1,123 @@
+<% allow_return_item_changes = !@return_authorization.customer_returned_items? %>
+
+<div data-hook="admin_return_authorization_form_fields">
+  <%= f.field_container :stock_location, class: ['form-group'] do %>
+    <%= f.label :stock_location, Spree.t(:stock_location) %> <span class="required">*</span>
+    <%  stock_locations = current_spree_vendor ? current_spree_vendor.stock_locations.rma_default : Spree::StockLocation.rma_default.where(vendor_id: @order.get_vendors.pluck(:id)) %>
+    <%= f.select :stock_location_id, stock_locations.to_a.collect{ |l| [l.name, l.id, {id: "vendor_#{  l.vendor.id}" }] }, {include_blank: true}, {class: 'select2', "data-placeholder" => Spree.t(:select_a_stock_location), id: 'customer_return_stock_location_id'} %>
+    <%= f.error_message_on :stock_location %>
+  <% end %>
+  <%= f.field_container :return_authorization, class: ['form-group'] do %>
+    <%= f.hidden_field :vendor_id, id: 'input_vendor_id' %>
+  <% end %>
+<div class="table-responsive">
+  <table class="table table-condensed table-bordered return-items-table">
+    <thead>
+      <tr data-hook="rma_header">
+        <th>
+        </th>
+        <th><%= Spree.t(:product) %></th>
+        <th><%= Spree.t(:status) %></th>
+        <th><%= Spree.t(:charged) %></th>
+        <th><%= Spree.t(:purchased_quantity) %></th>
+        <th><%= Spree.t(:return_quantity) %></th>
+        <th><%= Spree.t(:pre_tax_refund_amount) %></th>
+        <th><%= Spree.t(:reimbursement_type) %></th>
+        <th><%= Spree.t(:exchange_for) %></th>
+      </tr>
+    </thead>
+    <tbody id="vendor_product_list">
+      <%= f.fields_for :return_items, @form_return_items do |item_fields| %>
+        <% return_item = item_fields.object %>
+        <% inventory_unit = return_item.inventory_unit %>
+        <% editable = inventory_unit.shipped? && allow_return_item_changes && return_item.reimbursement.nil? %>
+        <tr class="row_item_<%= inventory_unit.variant.vendor_id %>">
+          <td class="inventory-unit-checkbox">
+            <% if editable %>
+              <%= item_fields.hidden_field :inventory_unit_id %>
+              <%= item_fields.check_box :_destroy, {checked: return_item.persisted?, class: 'add-item', "data-price" => return_item.pre_tax_amount}, '0', '1' %>
+            <% end %>
+          </td>
+          <td>
+            <div class="variant-name">
+              <%= link_to return_item.inventory_unit.variant.name, spree.edit_admin_product_path(return_item.inventory_unit.variant.product) %>
+            </div>
+            <div class="variant-options"><%= inventory_unit.variant.options_text %></div>
+          </td>
+          <td><%= inventory_unit.state.humanize %></td>
+          <td class="charged-amount" data-charged-amount="<%= return_item.pre_tax_amount %>">
+            <%= return_item.display_pre_tax_amount %>
+          </td>
+          <td class="purchased-quantity">
+            <%= inventory_unit.quantity %>
+          </td>
+          <td>
+            <% if editable %>
+              <%= item_fields.number_field :return_quantity, { class: 'refund-quantity-input form-control', min: 0, max: return_item.return_quantity } %>
+            <% else %>
+              <%= return_item.return_quantity %>
+            <% end %>
+          </td>
+          <td>
+            <% if editable %>
+              <%= item_fields.text_field :pre_tax_amount, { class: 'refund-amount-input form-control' } %>
+            <% else %>
+              <%= return_item.display_pre_tax_amount %>
+            <% end %>
+          </td>
+          <td>
+            <% if editable %>
+              <%= item_fields.select :preferred_reimbursement_type_id, @reimbursement_types.collect{ |r| [r.name.humanize, r.id] }, {include_blank: true}, {class: 'select2-clear', "data-placeholder" => Spree.t(:select_refund_type)} %>
+            <% end %>
+          </td>
+          <td>
+            <% if editable %>
+              <% if return_item.exchange_processed? %>
+                <%= return_item.exchange_variant.exchange_name %>
+              <% else %>
+                <%= item_fields.collection_select :exchange_variant_id, return_item.eligible_exchange_variants, :id, :exchange_name, { include_blank: true }, { class: "select2-clear return-item-exchange-selection", "data-placeholder" => Spree.t(:select_replace_by) } %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+  <%= f.field_container :amount, class: ['alert alert-info'] do %>
+    <%= Spree.t(:total_pre_tax_refund) %>: <span id="total_pre_tax_refund">0.00</span>
+  <% end %>
+
+  <%= f.field_container :return_authorization, class: ['form-group'] do %>
+    <%= f.check_box :request_pickup %>
+    <%= f.label :request_pickup, Spree.t(:request_pickup) %>
+      <div class="row rma_shipping_label_contant <%= f.object.request_pickup ? '' : 'd-none' %>">
+        <div class='form-group field col-6'>
+          <%= f.label :range_time, Spree.t(:range_time) %>
+          <%= f.select :range_time, Spree::ReturnAuthorization.range_times.keys.map{ |x| [x.titleize, x] }, {}, {class: 'select2-clear', "data-placeholder" => Spree.t(:select_a_time_range)} %>
+        </div>
+
+        <div class='form-group field col-6'>
+          <%= f.label :pickup_date, Spree.t(:pickup_date) %>
+          <%= f.text_field :pickup_date, value: datepicker_field_value(@return_authorization.pickup_date), class: 'datepicker form-control' %>
+          <%= f.error_message_on :pickup_date %>
+        </div>
+      </div>
+  <% end %>
+
+  <%= f.field_container :reason, class: ['form-group'] do %>
+    <%= f.label :reason, Spree.t(:reason) %> <span class="required">*</span>
+    <%= f.select :return_authorization_reason_id, @reasons.collect{|r|[r.name, r.id]}, {include_blank: true}, {class: 'select2-clear', "data-placeholder" => Spree.t(:select_a_return_authorization_reason)} %>
+    <%= f.error_message_on :reason %>
+  <% end %>
+
+  <%= f.field_container :memo, class: ['form-group'] do %>
+    <%= f.label :memo, Spree.t(:memo) %>
+    <%= f.text_area :memo, class: 'form-control' %>
+    <%= f.error_message_on :memo %>
+  <% end %>
+</div>
+
+<% if Spree::Config[:expedited_exchanges] %>
+  <div class="expedited-exchanges-warning"><%= Spree.t(:expedited_exchanges_warning, days_window: Spree::Config[:expedited_exchanges_days_window]) %></div>
+<% end %>

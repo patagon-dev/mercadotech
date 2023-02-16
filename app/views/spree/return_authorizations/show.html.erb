@@ -1,0 +1,16 @@
+<div class="p-5">
+  <h3 class="mt-2 mb-4"><%= Spree.t(:return_request, scope: :return_authorizations_view) %></h3>
+
+  <%= form_for [:order, @return_authorization] do |f| %>
+    <fieldset>
+      <%= f.field_container :amount, class: ['alert alert-info'] do %>
+        <%= Spree.t(:return_request_status)%>  : <b><%= @return_authorization.state %></b>
+      <% end %>
+      <%= render partial: 'form', locals: { f: f, display_only: true } %>
+    </fieldset>
+  <% end %>
+
+  <fieldset>
+    <%= link_to Spree.t(:back_to_order, scope: :return_authorizations_view), spree.order_url(@order), class: 'btn btn-primary' %>
+  </fieldset>
+</div>

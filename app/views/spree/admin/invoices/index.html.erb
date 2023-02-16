@@ -1,0 +1,17 @@
+<%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :invoices } %>
+
+<% content_for :page_title do %>
+  / <%= Spree.t(:invoices) %>
+<% end %>
+
+<% if @vendors.any? %>
+
+  <div data-hook="invoices_list" class="mb-3">
+    <%= render partial: 'spree/admin/shared/order_invoices', locals: { vendors: @vendors, invoices: @invoices } %>
+  </div>
+
+<% else %>
+  <div class="alert alert-info no-objects-found"><%= Spree.t(:order_has_no_invoices) %></div>
+<% end %>
+
+<%= render partial: 'spree/admin/shared/order_summary' %>

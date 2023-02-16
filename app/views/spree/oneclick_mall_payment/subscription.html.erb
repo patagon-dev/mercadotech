@@ -1,0 +1,13 @@
+<div class="col-row">
+  <div class="col-md-12">
+    <h4><%= Spree.t(:add_subscription) %></h4>
+  </div>
+</div>
+
+<div class="col-row">
+  <div class="col-md-12">
+    <%= form_for :subscribe, url: webpay_oneclick_mall_subscribe_path do |f| %>
+      <%= f.submit Spree.t("continue"), class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

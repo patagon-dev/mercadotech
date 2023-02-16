@@ -1,0 +1,19 @@
+<%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :bank_accounts } %>
+
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @object } %>
+
+<% content_for :page_title do %>
+  <%= Spree.t(:new_bank_account) %>
+<% end %>
+
+<%= form_for [:admin, @order, @bank_account], html: { multipart: true } do |f| %>
+  <fieldset data-hook="new_bank_account">
+    <%= render partial: 'form', locals: { f: f } %>
+
+    <div class="form-actions" data-hook="buttons">
+      <%= button Spree.t('actions.create'), 'save' %>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= button_link_to Spree.t('actions.cancel'), spree.admin_order_bank_accounts_url(@order), icon: 'delete', id: 'cancel_link' %>
+    </div>
+  </fieldset>
+<% end %>

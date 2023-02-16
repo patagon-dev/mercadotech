@@ -1,0 +1,35 @@
+<div data-hook="account_my_orders" class="account-page-orders border-0" id="account-my-orders">
+  <h3 class="text-uppercase spree-mb-medium spree-mt-medium spree-header" ><%= Spree.t(:my_orders) %></h3>
+  <% if @orders.present? %>
+    <table>
+      <thead class="active">
+        <tr>
+          <th class="text-uppercase text-secondary account-page-order-number"><%= Spree::Order.human_attribute_name(:number) %></th>
+          <th class="text-uppercase text-secondary account-page-order-date"><%= Spree.t(:date) %></th>
+          <th class="text-uppercase text-secondary account-page-order-status"><%= Spree.t(:status) %></th>
+          <th class="text-uppercase text-secondary account-page-order-payment-state"><%= Spree.t(:payment_state) %></th>
+          <th class="text-uppercase text-secondary account-page-order-shipment-state"><%= Spree.t(:shipment_state) %></th>
+          <th class="text-uppercase text-secondary account-page-order-total"><%= Spree.t(:total) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.includes(:invoices).each do |order| %>
+          <tr>
+            <td class="account-page-order-number"><%= link_to order.number, order_url(order), class: "text-primary" %></td>
+            <td class="account-page-order-date"><%= l order.completed_at.to_date %></td>
+            <td class="account-page-order-status"><%= Spree.t("order_state.#{order.state}").titleize %></td>
+            <td class="account-page-order-payment-state"><%= Spree.t("payment_states.#{order.payment_state}").titleize if order.payment_state %></td>
+            <td class="account-page-order-shipment-state"><%= Spree.t("shipment_states.#{order.shipment_state}").titleize if order.shipment_state %></td>
+            <td class="account-page-text-primary account-page-order-total account-page-lead"><%= order.display_total %></td>
+            <td class="account-page-arrow-container" data-order-path="<%= spree.order_path(order) %>">
+              <%= link_to '', spree.order_path(order), { class: "account-page-order-arrow" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info" role="alert"><%= Spree.t(:you_have_no_orders_yet) %></div>
+  <% end %>
+  <br />
+</div>

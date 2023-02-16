@@ -1,0 +1,29 @@
+<%= render 'spree/shared/error_messages', target: @bank_account %>
+
+<div class="col-lg-6 offset-lg-3">
+  <h3 class="spree-header spree-mb-large spree-mt-large"><%= @bank_account.new_record? ? Spree.t(:add_bank_account) : Spree.t(:edit_bank_account) %></h3>
+  <%= form_for @bank_account do |form| %>
+    <div class="form-group checkout-content-inner-field">
+      <span id="bank-selection">
+        <%= form.collection_select :bank_id, Spree::Bank.all, :id, :name, {:include_blank => Spree.t(:select_bank) }, { class: 'form-control spree-flat-select', required: true } %>
+      </span>
+    </div>
+    <div class="form-group checkout-content-inner-field">
+      <%= form.number_field :account_number, class: 'form-control spree-flat-input', placeholder: "#{Spree.t(:account_number, scope: :bank_account)} *", required: true %>
+    </div>
+    <div class="form-group checkout-content-inner-field">
+      <%= form.text_field :name, class: 'form-control spree-flat-input', placeholder: "#{Spree.t(:name)} *", required: true %>
+    </div>
+    <div class="form-group checkout-content-inner-field">
+      <%= form.email_field :email, class: 'form-control spree-flat-input', placeholder: "#{Spree.t(:email)} *", required: true %>
+    </div>
+    <div class="form-group checkout-content-inner-field">
+      <%= form.text_field :rut, class: 'form-control spree-flat-input', placeholder: "#{Spree.t(:rut)} *", required: true %>
+    </div>
+    <div class="form-check">
+      <%= form.check_box :is_default, class: 'form-check-input' %>
+      <%= form.label :is_default, class: 'form-check-label' %>
+    </div>
+    <%= form.submit t(:save, scope: :address_book), class: 'btn btn-primary btn-block spree-btn mb-5' %>
+  <% end %>
+</div>

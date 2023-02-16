@@ -1,0 +1,63 @@
+<div class="card mb-4">
+  <div class="card-header">
+    <h1 class="card-title mb-0 h5">
+      <%= Spree.t(:additional_information) %>
+    </h1>
+  </div>
+  <div class="card-body">
+    <%= f.field_container :comment_tool, class: ['form-group'] do %>
+      <%= f.label :comment_tool, Spree.t(:comment_tool) %><br />
+      <%= f.text_area :comment_tool, cols: 60, rows: 4, class: 'form-control' %>
+      <%= error_message_on :store, :comment_tool %>
+    <% end %>
+    <%= f.field_container :require_company_info_in_address, class: ['form-group'] do %>
+      <%= f.check_box :require_company_info_in_address %>
+      <%= f.label :require_company_info_in_address, Spree.t(:require_company_info_in_address) %>
+    <% end %>
+    <%= f.field_container :payment_methods, class: ['form-group'] do %>
+      <%= f.label :payment_methods, Spree.t(:payment_methods) %><br />
+      <% @payment_methods.each do |payment_method| %>
+        <label class="sub">
+          <%= check_box_tag 'store[payment_method_ids][]', payment_method.id, @store.payment_methods.include?(payment_method) %>
+        </label> &nbsp;
+        <%= payment_method.name %>
+        <br>
+      <% end %>
+      <%= hidden_field_tag 'store[payment_method_ids][]', '' %>
+    <% end %>
+    <%= f.field_container :shipping_methods, class: ['form-group'] do %>
+      <%= f.label :shipping_methods, Spree.t(:shipping_methods) %><br />
+      <% @shipping_methods.each do |shipping_method| %>
+        <label class="sub">
+          <%= check_box_tag 'store[shipping_method_ids][]', shipping_method.id, @store.shipping_methods.include?(shipping_method) %>
+        </label> &nbsp;
+        <%= shipping_method.name %>
+        <br>
+      <% end %>
+      <%= hidden_field_tag 'store[shipping_method_ids][]', '' %>
+    <% end %>
+    <%= f.field_container :maintenance_mode, class: ['form-group'] do %>
+      <%= f.check_box :maintenance_mode %>
+      <%= f.label :maintenance_mode, Spree.t(:enable_maintenance_mode) %>
+    <% end %>
+    <%= f.field_container :maintenance_message, class: [@store.maintenance_message.present? ? 'form-group' : 'd-none form-group'] do %>
+      <%= f.label :maintenance_message, Spree.t(:maintenance_message) %><br />
+      <%= f.text_area :maintenance_message, cols: 60, rows: 4, class: 'form-control' %>
+      <%= error_message_on :store, :maintenance_message %>
+    <% end %>
+    <div data-hook="tax_on_checkout" class="form-group">
+      <strong><%= Spree.t(:show_tax_on_checkout) %></strong>
+
+      <div class="radio">
+        <%= f.label :show_included_tax, Spree.t(:show_tax_on_checkout) do %>
+          <%= f.radio_button :show_included_tax, "true" %>
+          <%= Spree.t(:say_yes) %>
+        <% end %>
+        <%= f.label :show_included_tax, Spree.t(:show_tax_on_checkout) do %>
+          <%= f.radio_button :show_included_tax, "false" %>
+          <%= Spree.t(:say_no) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

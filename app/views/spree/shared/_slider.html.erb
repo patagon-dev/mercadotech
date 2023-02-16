@@ -1,0 +1,43 @@
+<% cache slider_cache_key do %>
+  <% if slider.size > 0 %>
+
+    <%# generate a random number for the carousel id - in case you want multiple per page %>
+    <% cid ||= Random.rand(1000) %>
+
+    <div id="carousel-slider-<%= cid %>" class="carousel slide" data-ride="carousel" <%= (defined? interval) != nil ? "data-interval=#{interval.to_s}" : "" %>>
+      <%# Indicators %>
+      <ol class="carousel-indicators">
+        <% slider.each_with_index do |slide, index| %>
+          <li data-target="#carousel-prod-<%= cid %>" data-slide-to="<%= index %>" class="<%= index == 0 ? 'active' : '' %>"></li>
+        <% end %>
+      </ol>
+
+      <%# Wrapper for slider %>
+      <div class="carousel-inner">
+        <% slider.each_with_index do |slide, index| %>
+          <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
+            <% image_url = slide.slide_image ? s3_persisted_url(slide.slide_image) : asset_path("noimage/large") %>
+            <%= link_to lazy_image(src: image_url, width: 1400, height: 600, alt: slide.slide_name, class: 'homepage-hero-image mb-3 position-relative'), url_for(slide.slide_link), :target => "_blank" %>
+            <div class="carousel-caption">
+              <h3><%= slide.slide_name %></h3>
+              <% unless slide.body.blank? %>
+                <p><%= slide.body %>
+                  <p>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <%# Controls %>
+          <a class="carousel-control-prev" href="#carousel-slider-<%= cid %>" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only"><%= t(:previous) %></span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-slider-<%= cid %>" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only"><%= t(:next) %></span>
+          </a>
+      </div>
+  <% end %>
+<% end %>

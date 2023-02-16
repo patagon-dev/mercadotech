@@ -1,0 +1,33 @@
+<% lists.each do |st_name, items| %>
+  <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" id="listing_orders_#{st_name}" data-hook>
+    <thead>
+      <tr>
+        <th class="text-center" colspan="7">
+          <%= Spree.t(:stock_location) %><%= st_name %>
+        </th>
+      </tr>
+      <tr data-hook="purchase_orders_headers">
+        <th><%= Spree.t(:shipment_number) %></th>
+        <th><%= Spree.t(:order) %></th>
+        <th><%= Spree.t(:quantity) %></th>
+        <th><%= Spree.t(:sku) %></th>
+        <th><%= Spree.t(:partnumber) %></th>
+        <th><%= Spree.t(:name) %></th>
+        <th><%= Spree.t(:reference_ids) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% items.each do |item| %>
+        <tr data-hook="purchase_orders_index_rows" class="<%= cycle('odd', 'even') %>">
+          <td><%= item.ship_number %></td>
+          <td><%= item.number %></td>
+          <td><%= item.units %></td>
+          <td><%= item.item_sku.split('_').last %></td>
+          <td><%= item.partnumber %></td>
+          <td><%= item.product_name %></td>
+          <td><%= item.reference_number %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table><br>
+<% end %>

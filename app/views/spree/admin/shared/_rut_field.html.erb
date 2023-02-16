@@ -1,0 +1,7 @@
+<div data-hook="admin_user_rut_field" >
+  <%= f.field_container :rut, class: ['form-group'] do %>
+    <%= f.label :rut, Spree.t(:rut) %>
+    <%= f.text_field :rut, class: 'form-control' %>
+    <%= f.error_message_on :rut %>
+  <% end %>
+</div>

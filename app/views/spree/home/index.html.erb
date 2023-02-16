@@ -1,0 +1,122 @@
+<% @body_id = 'home' %>
+
+<div class="homepage-hero-image mb-3 position-relative">
+  <%= render partial: 'spree/shared/slider', locals: { slider: @slides } %>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+
+      <div class="homepage-taxon-box mb-3">
+        <% spree_homepage_display_url = spree_homepage_taxon_url(spree_homepage_category_banner_upper_url) %>
+        <%= link_to spree_homepage_display_url[0], target: spree_homepage_display_url[1] do %>
+          <img class="w-100 lazyload"
+            data-src="<%= asset_path(spree_homepage_category_banner_upper_path) %>"
+            data-srcset="<%= image_source_set(spree_homepage_category_banner_upper_src_set) %>"
+            alt="<%= Spree.t('homepage.men')%>" />
+
+          <div class="homepage-taxon-box-text">
+            <h3><%= Spree.t("#{spree_homepage_category_banner_upper_text}") %></h3>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="homepage-taxon-box">
+        <% spree_homepage_display_url = spree_homepage_taxon_url(spree_homepage_category_banner_lower_url) %>
+        <%= link_to spree_homepage_display_url[0], target: spree_homepage_display_url[1] do %>
+          <img class="w-100 lazyload"
+            data-src="<%= asset_path(spree_homepage_category_banner_lower_path) %>"
+            data-srcset="<%= image_source_set(spree_homepage_category_banner_lower_src_set) %>"
+            alt="<%= Spree.t('homepage.sportswear')%>" />
+
+          <div class="homepage-taxon-box-text" role="img" aria-label="<%= Spree.t('homepage.sportswear') %>">
+            <h3><%= Spree.t("#{spree_homepage_category_banner_lower_text}") %></h3>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+
+    <div class="col-6 d-flex flex-column">
+
+      <div class="homepage-taxon-box flex-grow-1">
+        <% spree_homepage_display_url = spree_homepage_taxon_url(spree_homepage_big_category_banner_url) %>
+        <%= link_to spree_homepage_display_url[0], target: spree_homepage_display_url[1] do %>
+          <img class="w-100 lazyload"
+            data-src="<%= asset_path(spree_homepage_big_category_banner_path) %>"
+            data-srcset="<%= image_source_set(spree_homepage_big_category_banner_src_set) %>"
+            alt="<%= Spree.t('homepage.women')%>" />
+
+          <div class="homepage-taxon-box-text">
+            <h3><%= Spree.t("#{spree_homepage_big_category_banner_text}") %></h3>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div data-product-carousel data-product-carousel-taxon-id="<%= @current_store.code %>-bestsellers" class="my-3"></div>
+
+<div class="homepage-fashion-trends-box mb-3">
+  <div class="text-center">
+    <div class="homepage-fashion-trends-box-summer-text mb-1"><%= Spree.t("#{spree_homepage_fashion_trends_box_summer_text}") %></div>
+    <div class="homepage-fashion-trends-box-fashion-trends-text mb-2"><%= Spree.t("#{spree_homepage_fashion_trends_box_fashion_trends_text}") %></div>
+    <div class="homepage-fashion-trends-box-description-text text-center mb-3">
+      <%= Spree.t("#{spree_homepage_fashion_trends_box_description_text}") %>
+    </div>
+    <% spree_homepage_display_url = spree_homepage_taxon_url(spree_homepage_read_more_url) %>
+    <%= link_to Spree.t('homepage.read_more'), spree_homepage_display_url[0], target: spree_homepage_display_url[1], class: 'btn px-5 spree-btn btn-outline-primary' %>
+  </div>
+</div>
+
+
+<div data-product-carousel data-product-carousel-taxon-id="<%= @current_store.code %>-trending" class="mb-3"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <% spree_homepage_display_url = spree_homepage_taxon_url(spree_homepage_promo_banner_left_url) %>
+      <%= link_to spree_homepage_display_url[0], target: spree_homepage_display_url[1] do %>
+        <div class="homepage-bottom-box text-center mb-3">
+          <img class="w-100 lazyload"
+            data-src="<%= asset_path(spree_homepage_promo_banner_left_path) %>"
+            data-srcset="<%= image_source_set(spree_homepage_promo_banner_left_src_set) %>"
+            alt="<%= Spree.t('homepage.new_collection')%>" />
+
+          <div class="homepage-bottom-box-inner" role="img" aria-label="<%= Spree.t('homepage.new_collection') %>">
+           <div class="homepage-bottom-box-inner-small-text">
+              <%= Spree.t("#{spree_homepage_promo_banner_left_small_text}") %>
+            </div>
+            <div class="homepage-bottom-box-inner-big-text">
+              <%= Spree.t("#{spree_homepage_promo_banner_left_big_text}") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <% spree_homepage_display_url = spree_homepage_taxon_url(spree_homepage_promo_banner_right_url) %>
+      <%= link_to spree_homepage_display_url[0] , target: spree_homepage_display_url[1] do %>
+        <div class="homepage-bottom-box text-center mb-3">
+          <img class="w-100 lazyload"
+            ata-src="<%= asset_path(spree_homepage_promo_banner_right_path) %>"
+            data-srcset="<%= image_source_set(spree_homepage_promo_banner_right_src_set) %>"
+            alt="<%= Spree.t('homepage.summer_sale')%>" />
+
+          <div class="homepage-bottom-box-inner">
+            <div class="homepage-bottom-box-inner-small-text">
+              <%= Spree.t("#{spree_homepage_promo_banner_right_small_text}") %>
+            </div>
+            <div class="homepage-bottom-box-inner-big-text">
+              <%= Spree.t("#{spree_homepage_promo_banner_right_small_text}") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

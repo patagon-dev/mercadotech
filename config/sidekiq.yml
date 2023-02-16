@@ -1,0 +1,34 @@
+:verbose: false
+
+# Sidekiq will run this file through ERB when reading it so you can
+# even put in dynamic logic, like a host-specific queue.
+# http://www.mikeperham.com/2013/11/13/advanced-sidekiq-host-specific-queues/
+production:
+  :concurrency: 20
+  :labels:
+    - normal
+  :queues:
+    - compraagil_production_import
+    - compraagil_production_image_processing
+    - compraagil_production_others
+    - compraagil_production_searchkick
+
+staging:
+  :concurrency: 20
+  :labels:
+    - normal
+  :queues:
+    - compraagil_production_import
+    - compraagil_production_image_processing
+    - compraagil_production_others
+    - compraagil_production_searchkick
+
+development:
+  :concurrency: 10
+  :labels:
+    - normal
+  :queues:
+    - compraagil_production_import
+    - compraagil_production_image_processing
+    - compraagil_production_others
+    - compraagil_production_searchkick

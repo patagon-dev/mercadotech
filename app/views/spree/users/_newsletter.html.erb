@@ -1,0 +1,40 @@
+<div class="mt-3">
+  <div>
+    <% if Spree::List.any? %>
+      <h3 class="text-uppercase spree-mb-medium spree-mt-medium spree-header">
+        <%= Spree.t(:subscription)%>
+      </h3>
+      <div class="table-responsive overflow-x:scroll mt-4">
+        <table class="table table-striped index return-items-table">
+          <thead class="text-uppercase text-secondary">
+            <tr>
+              <th><%= Spree.t(:store) %></th>
+              <th><%= Spree.t(:list_name) %></th>
+              <th><%= Spree.t(:status) %></th>
+            </tr>
+          </thead>
+          <tbody id="store_list_id">
+              <% Spree::List.all.each do |store_list| %>
+                <tr id="<%= "store_list_#{store_list.id}" %>" >
+                  <td><%= store_list.store&.name %></td>
+                  <td><%= store_list.name %> </td>
+                  <td id="<%= "remove_span_#{store_list.id}" %>" >
+                    <span class="spinner-border text-secondary"></span>
+                    <!-- Showing Unsubscribe button -->
+                    <%= link_to Spree.t(:unsubscribe, scope: :list), unsubscription_path(email: @user.email, list_key: store_list.key), class: 'btn btn-sm btn-danger ml-1 rounded text-uppercase font-weight-bold d-none', id: "unsubscribe_#{store_list.id}" %>
+
+                    <!-- Showing Subscribe button -->
+                    <%= link_to Spree.t(:subscribe, scope: :list), subscription_path(email: @user.email, list_key: store_list.key), class: 'btn btn-sm btn-primary ml-1 rounded text-uppercase font-weight-bold d-none', id: "subscribe_#{store_list.id}" %>
+                  </td>
+                </tr>
+              <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="alert alert-info" role="alert">
+        <%= Spree.t(:you_have_no_subscription_yet) %>
+      </div>
+    <% end %>
+  </div>
+</div>

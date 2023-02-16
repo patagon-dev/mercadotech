@@ -1,0 +1,58 @@
+<% content_for :page_title do %>
+  <%= @vendor.name %>
+<% end %>
+  <div class="justify-content-end d-flex">
+    <%= link_to Spree.t(:run_job, scope: :spider_management), schedule_spider_admin_vendor_settings_path(vendor_id: @vendor&.id, spider_name: params['spider_name']) , class: 'btn btn-danger mr-2 mb-2' %>
+  </div>
+<div class="card mb-4">
+  <div class="card-header">
+    <h1 class="card-title mb-0 h5">
+      <%= params['spider_name'] %>
+    </h1>
+  </div>
+  <div class="card-body">
+    <% if @spider_logs.blank? %>
+      <div class="alert alert-warning col-12">
+        <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::SpiderManagement)) %>,
+      </div>
+    <% else %>
+      <div class="form-group">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th scope="col"><%= Spree.t(:job_id, scope: :spider_management) %></th>
+              <th scope="col"><%= Spree.t(:spider_name, scope: :spider_management) %></th>
+              <th scope="col"><%= Spree.t(:items, scope: :spider_management) %></th>
+              <th scope="col"><%= Spree.t(:requests, scope: :spider_management) %></th>
+              <th scope="col"><%= Spree.t(:close_reason, scope: :spider_management) %></th>
+              <th scope="col"><%= Spree.t(:finished, scope: :spider_management) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @spider_logs.order('finished').reverse.each do |log|%>
+              <tr>
+                <th scope="row"><%= log&.job_id %></th>
+                <td><%= log&.spider_name %></td>
+                <td>
+                  <% if log.finished.present? && log.scraped_item_log.attachment.present? %>
+                    <% scraped_file = log.scraped_item_log.attachment %>
+                    <% scraped_url = Rails.application.routes.url_helpers.rails_blob_path(scraped_file, disposition: 'inline', only_path: true) %>
+                    <%= link_to log&.items, scraped_url, class: 'btn badge badge-success ml-2 ' %>
+                  <% elsif log.close_reason.present? %>
+                    <%= link_to log&.items, scraped_item_list_admin_vendor_settings_url(job_id: log&.job_id), class: ' btn badge badge-warning ml-2 ' %>
+                  <% else %>
+                    <span class="btn badge badge-info"><%= log&.items %></span>
+                  <% end %>
+                </td>
+                <td><%= log&.requests %></td>
+                <td><%= log&.close_reason %></td>
+                <td><%= log&.finished %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= render partial: 'spree/admin/shared/vendor_side_tabs', locals: { current: 'product_import'} %>

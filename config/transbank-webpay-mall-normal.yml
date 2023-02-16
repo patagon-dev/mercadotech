@@ -1,0 +1,23 @@
+development:
+  webpay_normal_commerce_code: '597055555535'
+  webpay_normal_api_key: '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C'
+  webpay_normal_child_commerce_code: '597055555536'
+  webpay_normal_integration_type: :TEST
+
+staging:
+  webpay_normal_commerce_code: '597055555535'
+  webpay_normal_api_key: '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C'
+  webpay_normal_child_commerce_code: '597055555536'
+  webpay_normal_integration_type: :TEST
+
+production:
+  webpay_normal_commerce_code: '597035461221'
+  webpay_normal_api_key: '62eaa1fd7c9f4760c232f2be4f1b82da'
+  webpay_normal_child_commerce_code: '597035461221'
+  webpay_normal_integration_type: :LIVE
+
+test:
+  webpay_normal_commerce_code: '597055555535'
+  webpay_normal_api_key: '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C'
+  webpay_normal_child_commerce_code: '597055555536'
+  webpay_normal_integration_type: :TEST

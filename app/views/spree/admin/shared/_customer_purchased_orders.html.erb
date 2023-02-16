@@ -1,0 +1,5 @@
+<% if current_spree_vendor.present? %>
+  <%= render 'spree/admin/shared/customer_purchased_order_vendor', purchased_orders: @order.customer_purchase_orders.for_vendor(current_spree_vendor) %>
+<% else %>
+  <%= render 'spree/admin/shared/customer_purchased_order_admin', purchased_orders: @order.customer_purchase_orders %>
+<% end %>

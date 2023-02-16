@@ -1,0 +1,19 @@
+<% source = payment.source %>
+
+<% if source.is_a?(Spree::CreditCard) %>
+  <span class="cc-type">
+    <% if source.last_digits %>
+      <%= Spree.t(:ending_in) %> <%= source.last_digits %>
+    <% end %>
+  </span>
+  <br />
+  <span class="full-name"><%= source.name %></span>
+<% elsif payment.payment_method.type == 'Spree::Gateway::MicroCompra' %>
+  <% @order.micro_compra_purchase_orders.each do |purchase| %>
+    <%= render 'spree/shared/compra_purchased_orders', purchase: purchase %>
+  <% end %>
+<% elsif payment.webpay_ws_mall? || payment.oneclick_mall? %>
+    <%= render 'spree/shared/webpay_transaction_details', payment: payment %>
+<% else %>
+  <%= content_tag(:span, payment.payment_method.name) %>
+<% end %>

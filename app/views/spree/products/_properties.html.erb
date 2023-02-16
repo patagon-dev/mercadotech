@@ -1,0 +1,32 @@
+<% unless @product_properties.blank? %>
+  <% cache cache_product_properties do %>
+    <h3 class="pt-0 mt-0 font-weight-bold text-uppercase product-details-subtitle"><%= Spree.t(:details) %></h3>
+    <ul id="product-properties" class="m-0 list-unstyled product-properies" data-hook>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped" , style="table-layout: fixed;">
+          <thead>
+            <tr class="h6">
+              <th class="pl-2 text-dark fw-bold"><%= Spree.t(:product_properties) %></th>
+              <th class="pl-2 text-dark fw-bold"><%= Spree.t(:value) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @product_properties.each_with_index do |product_property, index| %>
+              <tr class="<%= index > 6 ? 'extended d-none' : '' %>">
+                <td><span class="text-break font-weight-bold"><%= product_property.property.presentation %>:</span></td>
+                <td><span class="text-break"><%= raw product_property.value %></span></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </ul>
+    <% if @product_properties.length > 6 %>
+      <span id="product-properies-arrow" class="d-flex justify-content-center align-items-center mt-3 mx-auto product-properies-arrow" aria-hidden="true", style="width: 100%;">
+        <button type="button" class="btn btn-secondary rounded ml-3"><span> <%= Spree.t(:show_more) %> </span>
+            <%= icon(name: 'arrow-right', classes: 'spree-icon-arrow spree-icon-arrow-down', width: 15, height: 15) %>
+        </button>
+      </span>
+    <% end %>
+  <% end %>
+<% end %>

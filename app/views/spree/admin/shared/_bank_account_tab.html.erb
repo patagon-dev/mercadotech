@@ -1,0 +1,8 @@
+<% if (can? :index, Spree::BankAccount) %>
+  <li data-hook='admin_order_tabs_bank_accounts'>
+    <%= link_to_with_icon 'money',
+      Spree::BankAccount.human_attribute_name(:bank_accounts),
+      spree.admin_order_bank_accounts_url(@order),
+      class: "#{'active' if current == :bank_accounts} nav-link" %>
+  </li>
+<% end %>

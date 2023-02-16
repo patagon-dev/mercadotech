@@ -1,0 +1,19 @@
+// This is a manifest file that'll be compiled into including all the files listed below.
+// Add new JavaScript/Coffee code in separate files in this directory and they'll automatically
+// be included in the compiled file accessible from http://example.com/assets/application.js
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// the compiled file.
+//
+//= require jquery
+//= require jquery_ujs
+//= require accounting.min
+//= require spree/frontend
+
+//= require_tree .
+//= require spree/frontend/spree_counties
+//= require spree/frontend/spree_reviews
+
+if(typeof Spree.typeaheadSearch !== 'undefined') Spree.typeaheadSearch();
+
+// Fix for I18n locale query string
+Spree.routes.product_related = function(id) { return Spree.routes.product(id + '/related') }

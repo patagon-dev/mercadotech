@@ -1,0 +1,14 @@
+<% cache base_cache_key + [prop_downcase_name, params_prop_downcase_name, permitted_params, @taxon&.id] + [filter_cache_key(@filterable_properties, "filterable_properties")] do %>
+  <% selected_product_property_values = params_prop_downcase_name&.split(',') || [] %>
+  <% product_properties.group_by(&:value).each do |product_property_key, product_properties| %>
+    <% #id = product_property.id %>
+    <% name = product_property_key %>
+
+    <% product_property_param = (selected_product_property_values.include?(name) ? selected_product_property_values - [name] : selected_product_property_values + [name]).join(',') %>
+    <%= link_to permitted_params.merge(prop_downcase_name => product_property_param), data: { params: permitted_params.merge(prop_downcase_name => product_property_param), id: name, filter_name: prop_downcase_name, multiselect: true } do %>
+      <div class="d-inline-block text-uppercase py-1 px-2 m-1 plp-overlay-card-item <%= 'plp-overlay-card-item--selected' if selected_product_property_values.include?(name) %>">
+        <%= raw name %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

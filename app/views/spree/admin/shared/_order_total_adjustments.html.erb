@@ -1,0 +1,17 @@
+<% unless current_spree_vendor.present? %>
+  <%= render "spree/admin/orders/adjustments",
+    adjustments: @order.line_item_adjustments,
+    order: order,
+    title: Spree.t(:line_item_adjustments)
+  %>
+  <%= render "spree/admin/orders/adjustments",
+    adjustments: @order.shipment_adjustments,
+    order: order,
+    title: Spree.t(:shipment_adjustments)
+  %>
+  <%= render "spree/admin/orders/adjustments",
+    adjustments: @order.adjustments,
+    order: order,
+    title: Spree.t(:order_adjustments)
+  %>
+<% end %>

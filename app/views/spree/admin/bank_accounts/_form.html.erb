@@ -1,0 +1,30 @@
+<div data-hook="admin_bank_account_form_fields" class="row">
+  <div class="col-12 col-md-6">
+    <div data-hook="bank" class="form-group">
+      <%= f.label :bank_id, Spree::Bank.model_name.human, class: 'form-label' %>
+      <%= f.select :bank_id, Spree::Bank.pluck(:name, :id), {}, {class: 'select2'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :account_number, Spree.t(:account_number, scope: :bank_account), class: 'form-label' %>
+      <%= f.number_field :account_number, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :name, Spree.t(:name, scope: :bank_account), class: 'form-label' %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-12 col-md-6">
+    <div class="form-group">
+      <%= f.label :email, Spree.t(:email, scope: :bank_account), class: 'form-label' %>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :rut, Spree.t(:rut, scope: :bank_account), class: 'form-label' %>
+      <%= f.text_field :rut, class: 'form-control' %>
+    </div>
+    <div class="form-check">
+      <%= f.check_box :is_default, class: 'form-check-input' %>
+      <%= f.label :is_default, class: 'form-check-label' %>
+    </div>
+  </div>
+</div>

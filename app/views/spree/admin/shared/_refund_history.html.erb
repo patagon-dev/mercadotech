@@ -1,0 +1,84 @@
+<% if refund_history.present? %>
+  <fieldset>
+     <h3 class="mt-3"><%= Spree.t(:refund_history) %></h3>
+     <div class="table-responsive">
+     <table class="table table-condensed table-bordered border-top">
+        <thead data-hook="customer_return_header">
+           <tr>
+              <th><%= Spree.t(:reference_number) %></th>
+              <th><%= Spree.t(:amount) %></th>
+              <th><%= Spree.t(:refund_type) %></th>
+              <th><%= Spree.t(:refund_response_params) %></th>
+           </tr>
+        </thead>
+        <tbody>
+           <tr id="<%= refund_history.id %>" data-hook="reimbursement_refund_row">
+              <td><%= refund_history.reference_number %></td>
+              <td><%= refund_history.amount %></td>
+              <td><%= refund_history.refund_type %></td>
+              <td><%= refund_history.refund_response %></td>
+           </tr>
+        </tbody>
+     </table>
+  </fieldset>
+  <% transaction_id_present = refund_history.transaction_id %>
+  <% failure_reason_present = refund_history.failure_reason %>
+  <div class="table-responsive mt-1">
+     <table class="table table-bordered border-top" data-hook="stock-contents">
+        <thead>
+           <tr>
+              <% if transaction_id_present %>
+                <th><%= Spree.t(:transaction_id, scope: :refund) %></th>
+              <% end %>
+              <th class="text-center"><%= Spree.t(:status, scope: :refund) %></th>
+              <th class="text-center"><%= Spree.t(:edit, scope: :refund) %></th>
+              <% if failure_reason_present %>
+                <th>
+                  <%= Spree.t(:failure_reason, scope: :refund) %>
+                </th>
+              <% end %>
+           </tr>
+        </thead>
+        <tbody>
+           <tr class="" id="refund_history_show_section">
+              <% if transaction_id_present %>
+                <td><%= refund_history&.transaction_id %></td>
+              <% end %>
+              <td class="text-center"> <span class="h6 pl-2 pr-2 pt-1 pb-1"> <%= Spree.t(:refund_status, scope: :refund) %>: <%= refund_history&.status %></span></td>
+              <td class="text-center">
+                <% if refund_history.editable? %>
+                  <%= link_to_with_icon 'edit', Spree.t('edit'), '#', class: 'refund_history_edit_button btn btn-primary btn-sm', remote: true, title: Spree.t('edit'), no_text: true %>
+                <% end %>
+              </td>
+              <% if failure_reason_present %>
+                <td>
+                  <%= refund_history&.failure_reason %>
+                </td>
+              <% end %>
+           </tr>
+           <tr class="d-none" id="refund_history_edit_section">
+              <% if transaction_id_present %>
+                <td><%= refund_history&.transaction_id %></td>
+              <% end %>
+              <%= form_tag(admin_refund_history_path(refund_history), method: :put) do %>
+                <td>
+                  <label><%= Spree.t(:update_refund_status, scope: :refund) %>:</label>
+                  <%= select_tag "refund_state", options_for_select([['failed','fail'],['completed','complete']]), include_blank: true, class: "form-control" %>
+                </td>
+                <td class="actions text-center">
+                  <%= link_to_with_icon 'cancel', Spree.t('actions.cancel'), "#", class: 'refund_history_cancel_button btn btn-primary btn-sm', data: {action: 'cancel'}, title: Spree.t('actions.cancel'), no_text: true %>
+                  <%= button_tag(type: "submit", class: 'btn btn-success btn-sm', data: {action: 'save'}, title: Spree.t('actions.save'), no_text: true, onclick: "alert('You want to  update?')") do %>
+                    <span class="icon icon-save"></span>
+                  <% end %>
+                </td>
+                <% if failure_reason_present %>
+                  <td>
+                    <%= refund_history&.failure_reason %>
+                  </td>
+                <% end %>
+              <% end %>
+           </tr>
+        </tbody>
+     </table>
+  </div>
+<% end %>

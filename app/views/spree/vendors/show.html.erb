@@ -1,0 +1,25 @@
+<% @body_id = 'vendor-details' %>
+
+<div class="container p-5">
+  <div class="row">
+    <div class="col-lg-6 col-sm-12 col-xs-12 ">
+      <h2 class='my-3 d-flex justify-content-center'>Información del Proveedor</h2>
+      <div class='d-flex justify-content-center flex-wrap'>
+        <div class='p-2 mx-4'>
+          <%= image_tag s3_persisted_url(@vendor.image.attachment) if @vendor.image %>
+        </div>
+        <div>
+          <ul class='list-unstyled'>
+            <li><strong>Name:</strong> <%= @vendor.name %></li>
+            <li><strong>Email:</strong> <%= @vendor.notification_email %></li>
+            <li><strong>Contact:</strong> <%= @vendor.contact_us %></li>
+            <li><strong>Bio:</strong> <%= @vendor.about_us %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+

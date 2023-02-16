@@ -1,0 +1,12 @@
+<% if payment.webpay_params.present? %>
+  <p><%= payment.webpay_ws_mall? ? Spree.t(:webpay) : Spree.t(:oneclick_mall) %></p>
+  <p><%= Spree::Vendor.find_by(webpay_ws_mall_store_code: payment.webpay_ws_mall_trx_details('commercecode'))&.name %></p>
+  <div>
+    <span><%= Spree.t(:card) %>: <small><%= "XXXXXXXXXXXX#{payment.webpay_params['cardNumber']}" %></small></span><br/>
+    <span><%= Spree.t(:auth_code) %>: <%= payment.webpay_ws_mall_trx_details('authorizationcode') %></span><br/>
+    <span><%= Spree.t(:amount) %>: <%= Spree::Money.new(payment.amount, currency: payment.currency).to_html %></span><br/>
+    <span><%= Spree.t(:status) %>: <%= payment.webpay_trx_success ? Spree.t(:success) : Spree.t(:failed) %></span><br/>
+    <span><%= Spree.t(:response) %>: <%= I18n.t("payment.oneclick.response_code.#{payment.oneclick_params_response_code.to_s}") %> (<%= Spree.t(:code) %>: <%= payment.oneclick_params_response_code %>)</span><br/>
+    <hr/>
+  </div>
+<% end %>

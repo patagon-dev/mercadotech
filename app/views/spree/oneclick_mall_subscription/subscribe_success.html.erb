@@ -1,0 +1,31 @@
+<div class="col-md-12 my-2 text-center">
+  <h4><%= Spree.t(:subscription_success) %></h4>
+</div>
+
+<div class="col-md-12 text-center">
+  <% if @order.user.webpay_oneclick_mall_users %>
+    <h6><%= Spree.t(:webpay_saved_cards) %></h6>
+    <div class="col-md-12 my-3 d-flex justify-content-center">
+      <div class="card">
+        <div class="card-body">
+          <%= form_with url: oneclick_mall_pay_path, local: true, method: :get do |form| %>
+            <% @order.user.webpay_oneclick_mall_users.subscribed.each do |oneclick_user| %>
+              <div class='my-3'>
+                <%= radio_button_tag "oneclick_user_id", oneclick_user.id, true %> <%= oneclick_user.card_number %>
+              </div>
+              <% if oneclick_user.is_credit_card? %>
+                <div class="my-3">
+                  <%= Spree.t("oneclick_shares") %>: <%= select_tag :shares_number, options_for_select(Tbk::WebpayOneclickMall::User::SHARES_NUMBERS, "1")%>
+                </div>
+              <% end %>
+              <div class="text-center p-2">
+                <%= form.submit Spree.t('continue'), class: 'btn btn-primary' %>
+                <%= link_to Spree.t("back"), checkout_state_path(:payment), class: "btn btn-info" %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

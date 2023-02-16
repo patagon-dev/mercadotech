@@ -1,0 +1,11 @@
+<div data-hook="store_invoice_types" class="my-2">
+  <%= f.field_container :invoice_types do %>
+    <%= f.label :invoice_types, Spree.t(:invoice_types) %>
+    <% Spree::Invoice::TYPES.each do |document_type| %>
+      <div class="form-check">
+        <%= check_box_tag 'store[invoice_types][]', document_type, @store.invoice_types.include?(document_type.to_s), class: 'form-check-input invoice_type_ids' %>
+        <%= label_tag Spree.t("invoice_type_#{document_type}"), nil, class: 'form-check-label' %><br />
+      </div>
+    <% end %>
+  <% end %>
+</div>

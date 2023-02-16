@@ -1,0 +1,46 @@
+<% content_for :sidebar do %>
+  <ul class="nav flex-column nav-pills" data-hook="admin_vendor_tabs">
+    <%= content_tag :li do %>
+      <%= link_to_with_icon 'edit',
+        Spree.t(:main_info),
+        admin_vendor_settings_url,
+        class: "nav-link #{'active' if current == 'main'}" %>
+    <% end if can?(:admin, Spree::Vendor) %>
+    <%= content_tag :li do %>
+      <%= link_to_with_icon 'tag',
+        Spree.t(:tags),
+        admin_vendor_settings_tags_url,
+        class: "nav-link #{'active' if current == 'tags'}" %>
+    <% end if can?(:admin, Spree::Vendor) %>
+    <%= content_tag :li do %>
+      <%= link_to_with_icon 'money',
+        Spree.t(:payments),
+        admin_vendor_settings_payments_url,
+        class: "nav-link #{'active' if current == 'payments'}" %>
+    <% end if can?(:admin, Spree::Vendor) %>
+    <%= content_tag :li do %>
+      <%= link_to_with_icon 'log-out',
+        Spree.t(:shipping),
+        admin_vendor_settings_shipping_url,
+        class: "nav-link #{'active' if current == 'shipping'}" %>
+    <% end if can?(:admin, Spree::Vendor) %>
+    <%= content_tag :li do %>
+      <%= link_to_with_icon 'file',
+        Spree.t(:invoice),
+        admin_vendor_settings_invoice_url,
+        class: "nav-link #{'active' if current == 'invoice'}" %>
+    <% end if can?(:admin, Spree::Vendor) %>
+    <%= content_tag :li do %>
+      <%= link_to_with_icon 'import',
+        Spree.t(:product_import),
+        admin_vendor_settings_product_import_url,
+        class: "nav-link #{'active' if current == 'product_import'}" %>
+    <% end if can?(:admin, Spree::Vendor) %>
+    <%= content_tag :li do %>
+      <%= link_to_with_icon 'wrench',
+        Spree.t(:vendor_terms, scope: :vendor_term),
+        admin_vendor_settings_vendor_terms_url,
+        class: "nav-link #{'active' if current == 'vendor_terms'}" %>
+    <% end if can?(:admin, Spree::Vendor) %>
+  </ul>
+<% end %>

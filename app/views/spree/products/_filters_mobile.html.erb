@@ -1,0 +1,28 @@
+<%= form_tag '', method: :get, id: 'sidebar_products_search' do %>
+  <%= hidden_field_tag 'per_page', params[:per_page] %>
+  <%= hidden_field_tag 'keywords', params[:keywords] %>
+
+  <% is_visible = params[:menu_open] ? 'block' : 'none' %>
+
+  <div id="filter-by-overlay" class="d-lg-none plp-overlay" style="display: <%= is_visible %>;">
+    <div class="plp-scroll">
+      <div class="container">
+        <div class="plp-overlay-header">
+          <%= Spree.t('plp.filter_by') %>
+          <%= inline_svg_tag 'close.svg', id: 'filter-by-overlay-hide-button' %>
+        </div>
+      </div>
+      <div id="filters-accordion">
+        <% @filters.each do |filter| %>
+          <% next if filter[:options].empty? %>
+          <%= render partial: "spree/shared/es_filter_mobile", locals: { filter: filter, filter_name: filter[:name]&.downcase&.gsub(/\s+/, "") } %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="container position-absolute text-center plp-overlay-buttons pt-3">
+      <%= link_to Spree.t('plp.clear_all'), { action: params[:action], keywords: params[:keywords] }, class: 'btn spree-btn btn-outline-primary w-100 mb-4' %>
+      <%= submit_tag Spree.t('plp.done'), :name => nil, :class => 'btn btn-primary spree-btn w-100' %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<fieldset data-hook="micro_compra">
+  <legend><%= Spree.t(:micro_compra_name) %></legend>
+  <table class="table table-condensed table-bordered">
+    <thead>
+      <tr>
+        <th><%= Spree.t(:vendor_name) %></th>
+        <th><%= Spree.t(:url) %></th>
+        <th><%= Spree.t(:status) %></th>
+        <th><%= Spree.t(:message) %></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% payment.order.micro_compra_purchase_orders.each do |purchase| %>
+        <tr>
+          <td><%= purchase.vendor&.name %></td>
+          <td><%= link_to "#{purchase.respuesta}", purchase.url, target: '_blank' if purchase.status == 'success' %></td>
+          <td><%= purchase.status == 'success' ? Spree.t(:succeed) : Spree.t(:failed) %></td>
+          <td><%= purchase.respuesta if purchase.status != 'success' %></td>
+        </tr>
+
+      <% end %>
+    </tbody>
+  </table>
+</fieldset>

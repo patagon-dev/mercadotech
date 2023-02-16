@@ -1,0 +1,51 @@
+<table class="table table-bordered" id='invoices' data-order-id='<%= @order.number %>'>
+  <thead>
+    <tr data-hook="invoices_header">
+      <th><%= Spree::Vendor.human_attribute_name(:name) %></th>
+      <th><%= Spree::Invoice.human_attribute_name(:number) %></th>
+      <th><%= "#{Spree.t('date')}/#{Spree.t('time')}" %></th>
+      <th><%= Spree.t(:invoice_type) %></th>
+      <th class="text-center"><%= Spree.t('admin.invoice.download') %></th>
+      <th class="actions text-center"></th>
+  </thead>
+  <tbody>
+    <% vendors.each do |vendor| %>
+      <% v_invoices = invoices.for_vendor(vendor) %>
+      <% invoice = v_invoices.first %>
+      <% invoice_created_at = invoice.present? ? pretty_time(invoice.created_at) : '--' %>
+      <% invoice_number = invoice.present? ? invoice.number : '--' %>
+
+      <tr id="<%= dom_id(vendor) %>" data-hook="vendor_invoices_row" data-number="<%= vendor.id %>">
+        <td><%= vendor.name %></td>
+        <td><%= invoice_number %></td>
+        <td><%= invoice_created_at %></td>
+        <td><%= select_tag '', options_for_select(Spree::Invoice::TYPES.map{ |i| [Spree.t("invoice_type_#{i}"), i] }, @order.bill_address&.document_type), class: 'select2 invoice-types' %></td>
+        <td class="text-center">
+          <% if invoice.present? && invoice.document.attached? %>
+            <% v_invoices.each do |invoice| %>
+              <% document_path = main_app.rails_blob_path(invoice.document, disposition: "inline", only_path: true) %>
+              <%= link_to "#{invoice.document.blob.filename.to_s}", document_path, target: '_blank' %><br>
+            <% end %>
+          <% else %>
+            <%= Spree.t('admin.invoice.not_generated') %>
+          <% end %>
+        </td>
+        <td class="actions actions-2 text-center">
+          <% if !invoice.present? %>
+            <% if vendor&.superfactura_api? %>
+              <%= link_to_with_icon('file', Spree.t('admin.invoice.generate'), 'javascript:void(0);', data: { url: admin_order_invoices_path(@order, vendor_id: vendor.id) }, method: :post, no_text: true, class: 'btn btn-outline-secondary btn-sm generate-invoice ','data-disable-with' => "<span class='icon icon-file'></span>") if can?(:create, Spree::Invoice) %>
+            <% else %>
+              <%= form_for Spree::Invoice.new, url: admin_order_invoices_path(@order, vendor_id: vendor.id), method: :post, class: 'invoice_form' do |f| %>
+                <%= f.text_field :number, placeholder: 'Invoice Number', class: 'form-control mb-2', required: true %>
+                <%= f.file_field :document, accept: 'application/pdf', class: 'form-control mb-2', required: true %>
+                <%= f.submit Spree.t('admin.invoice.generate'), class: 'btn btn-sm btn-primary' %>
+              <% end %>
+            <% end %>
+          <% elsif vendor&.superfactura_api? && v_invoices.size < 2 && invoice.document.attached? && invoice.document.filename.to_s.split('_')[0].to_i != 52 %>
+            <%= link_to_with_icon 'delete', Spree.t('delete'), admin_order_invoices_path(@order, vendor_id: vendor.id, invoice_type: 61), class: 'btn btn-danger btn-sm','data-disable-with' => "<span class='icon icon-delete'></span>", method: :post, no_text: true %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

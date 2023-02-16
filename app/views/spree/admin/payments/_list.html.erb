@@ -1,0 +1,40 @@
+<table class="table table-bordered" id='payments' data-order-id='<%= @order.number %>'>
+  <thead>
+    <tr data-hook="payments_header">
+      <th><%= Spree::Payment.human_attribute_name(:number) %></th>
+      <th><%= "#{Spree.t('date')}/#{Spree.t('time')}" %></th>
+      <th class="text-center"><%= Spree.t(:amount) %></th>
+      <th class="text-center"><%= Spree.t(:payment_method) %></th>
+      <th class="text-center"><%= Spree.t(:transaction_id) %></th>
+      <th class="text-center"><%= Spree.t(:payment_state) %></th>
+      <th class="actions text-center"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% payments.each do |payment| %>
+      <tr id="<%= dom_id(payment) %>" data-hook="payments_row" data-number="<%= payment.number %>">
+        <td><%= link_to payment.number, spree.admin_order_payment_path(@order, payment) %></td>
+        <td><%= pretty_time(payment.created_at) %></td>
+        <td class="amount text-center"><%= payment.display_amount %></td>
+        <td class="text-center"><%= payment_method_name(payment) %></td>
+        <td class="text-center"><%= payment.transaction_id %></td>
+        <td class="text-center">
+          <span class="badge badge-<%= payment.state %>">
+            <%= Spree.t(payment.state, scope: :payment_states, default: payment.state.capitalize) %>
+          </span>
+        </td>
+        <td class="actions actions-2 text-center">
+          <% payment.actions.each do |action| %>
+            <% if action == 'credit' %>
+              <%= link_to_with_icon('refund', Spree.t(:refund), new_admin_order_payment_refund_path(@order, payment), no_text: true, class: "btn btn-outline-secondary btn-sm") if can?(:create, Spree::Refund) %>
+            <% else %>
+              <%= link_to_with_icon(action, Spree.t(action), fire_admin_order_payment_path(@order, payment, e: action), method: :put, no_text: true, data: { action: action }, class: "btn btn-outline-secondary btn-sm") if can?(action.to_sym, payment) %>
+            <% end %>
+          <% end %>
+          <%= link_to Spree.t(:api_refund), make_refund_admin_order_payment_path(@order, payment), method: :put, class: 'btn btn-default badge-waiting btn-sm', data: { confirm: Spree.t(:refund_request_prompt, amount: payment.display_amount.to_s) } if payment.refund_pending? && payment.eligible_for_api_refund? && can?(:make_refund, payment) %>
+          <%= link_to Spree.t('refunded'), mark_payment_refunded_admin_orders_path(number: payment.number), method: :put, class: 'btn btn-success btn-sm' if payment.refund_pending? && can?(:mark_payment_refunded, payment) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

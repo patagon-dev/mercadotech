@@ -1,0 +1,83 @@
+es:
+  spree:
+    webpay_ws: Webpay
+    order_state:
+      webpay_ws: webpay
+    webpay_ws_redirect: Usted será redirigido a página de pago de Webpay. Después de completar el formulario de pago volverá a la tienda.
+    webpay_ws_try_again_or_later: 'Se ha producido un error, inténtalo de nuevo ó más tarde'
+    webpay_ws_payment_successfully_completed: Pago completado con éxito
+    webpay_ws_payment_process_completed: Proceso de pago completado
+    webpay_ws_payment_incompleted: Transacción Fracasada
+    webpay_ws_payment_rejected: Transacción Rechazada
+    purchase_code: Código de compra
+    webpay_ws_payment_with_errors: 'Ha ocurrido un error, inténtalo de nuevo utilizando un método de pago diferente.'
+    webpay_ws_thanks: Gracias por su preferencia
+    webpay_ws_payment_registered: Ya hemos registrado el pago de su pedido.
+    webpay_ws_awaiting_confirmation: Estamos esperando la confirmación del pago de su pedido.
+    webpay_ws_captured: "Pago capturado manualmente"
+    #Success
+    webpay_ws_buyer_name: "Nombre de Comprador"
+    webpay_ws_trx_date: "Fecha de transacción"
+    webpay_ws_trx_type: "Tipo de transacción"
+    webpay_ws_order_number: "Número de Orden"
+    webpay_ws_payment_type: "Tipo de pago realizado"
+    webpay_ws_auth_code: "Código de Autorización"
+    webpay_ws_authorization_amount: "Monto de la Transacción"
+    webpay_ws_currency: "Moneda de la Transacción"
+    webpay_ws_card_number: "Últimos dígitos de la tarjeta"
+    webpay_ws_payments_quota: "Número de Cuotas"
+    webpay_ws_payments_quota_type: "Tipo de Cuotas"
+    webpay_ws_name_store: "Nombre Comercio"
+    webpay_ws_store_url: "Url Comercio"
+    webpay_ws_sale: "Venta"
+    webpay_ws_paid: "Pago"
+
+  payment:
+    transaction_error: "Ha habido un error al realizar el pago correctamente"
+    actions:
+      wp: "[WebpayWorker:Perform]"
+      wi: "[Webpay:Init]"
+      wc: "[Webpay:Confirmation]"
+      ws: "[Webpay:Success]"
+      wf: "[Webpay:Failure]"
+      wa: "[Webpay:ResponseACK]"
+
+    msgs:
+      init:
+        start_transaction: "Start transaction with Webpay"
+        not_connected: "Unable to connect to Webpay"
+        transaction_ok: "Correct connection with Webpay" 
+        incorrect_data: "Incorrect data received fromWebpay"
+        redirected_to_webpay: "Redirect to Webpay"
+        not_redirected_to_webpay: "Unable to redirect to Webpay"
+
+      confirmation:
+        ok: "Order confirmation from Webpay OK"
+        send_wk: "Send to WebpayWorker for success process"
+        inv_code: "HTTP Code != 200"
+        null_ack: "Null response_ack"
+        inv_state_pay: "Payment with invalid state"
+        inv_result: "Webpay results not valid or not exists"
+        inv_token: "Invalid webpay_token from WebPay confirmation request"
+
+      ack:
+        ok: "Payment with token %{token_tbk} with ACK confirmation. Response: %{response}"
+        not_ok: "Payment with token %{token_tbk} without ACK confirmation. Response: %{response}"
+        invalid_response_code: "Payment with token %{token_tbk} with invalid response code. Response: %{response}"
+
+      failed:
+        inv_response: "Invalid response for %{order}"
+        not_exists: "Order %{order} not exists"
+        already_pay: "Order %{order} already paid"
+        inv_amount: "Invalid amount of response for  order %{order} and payment amount %{amount}"
+        not_accepted_pay: "Not accepted payment"
+        failed_pay: "Payment failure || payment_state: %{pay_st} || payment_accepted: %{pay_acc} || order_state: %{order_st}"
+
+      success:
+        inv_pay: "Payment failed or not accepted || payment_state: %{pay_st} || payment_accepted: %{pay_acc} || order_state: %{order_st}"
+        ok_order_pay: "Order complete and payment accepted"
+        not_ok_order_pay: "Order not complete or payment not accepted || payment_state: %{pay_st} || payment_accepted: %{pay_acc} || order_state: %{order_st}"
+        
+      worker:
+        ok_order: "Order successfully completed"
+        error_order: "¡¡ERROR!!: Error al procesar pago orden %{order}: E -> %{message}"

@@ -1,0 +1,4 @@
+<% contact_us_url = "https://#{@current_store.url}/#{@current_store.code}/contactus" %>
+<p>
+  <%= Spree.t(:email_footer_message) %> <%= link_to 'aquí', contact_us_url %>
+</p>

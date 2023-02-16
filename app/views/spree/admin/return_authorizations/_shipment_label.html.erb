@@ -1,0 +1,28 @@
+<div class='card mt-3 border-bottom-0'>
+  <div class='table-condensed p-3'>
+    <h1 class='card-title mb-0 h5'>
+      <%= Spree.t(:shipping_label) %>
+    </h1>
+  </div>
+</div>
+
+<table class="table table-condensed table-bordered index return-items-table mb-5">
+  <thead>
+    <tr>
+      <th><%= Spree.t(:order_number) %></th>
+      <th><%= Spree.t(:return_authorization_number) %></th>
+      <th><%= Spree.t('admin.shipment.download_label') %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= order.number%></td>
+      <td><%= return_authorization.number %></td>
+      <td>
+        <% file_path =  Rails.application.routes.url_helpers.rails_blob_path(return_authorization.shipment_label.enviame_label, disposition: "inline", only_path: true) %>
+        <%= link_to Spree.t('admin.shipment.download_label'), file_path, target: '_blank', class: 'btn btn-success btn-sm' %></td>
+      <td><%= link_to_with_icon 'delete', Spree.t('delete'), admin_order_destroy_label_path(order, return_authorization), class: 'btn btn-danger btn-sm','data-disable-with' => "<span class='icon icon-delete'></span>", method: :delete, no_text: true %></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,6 @@
+<% if @response == :success %>
+  $('.newsletter').hide();
+  $("#sendy_response").removeClass().addClass('text-success').html("<%= @message %>");
+<% else %>
+  $("#sendy_response").removeClass().addClass('text-danger').html("<%= @message %>");
+<% end %>

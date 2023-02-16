@@ -1,0 +1,5 @@
+# attribute-map.yml
+
+# "saml_response_key": "User_model_attributes_name"
+"nombres": "nombres"
+"apellidos": "apellidos"

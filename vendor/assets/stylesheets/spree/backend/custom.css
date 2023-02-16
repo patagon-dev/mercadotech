@@ -1,0 +1,20 @@
+.select2-dropdown--below{
+  z-index: 9999;
+}
+
+@media (min-width: 1200px) {
+  .container-xl, .container-lg, .container-md, .container-sm, .container {
+    max-width: 1440px;
+  }
+}
+
+.badge-credit_owed {
+    color: white;
+    background-color: purple;
+}
+
+.badge-balance_due {
+    color: white;
+    background-color: deeppink;
+}
+

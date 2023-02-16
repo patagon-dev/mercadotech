@@ -1,0 +1,21 @@
+<% @spree_user = @spree_user || Spree::User.new %>
+<div id="social-signin-links">
+  <% current_store.authentication_types.non_standard.available_for(@spree_user).each do |method| %>
+    <% if method.active %>
+      <% case method.provider %>
+      <% when 'openid_connect' %>
+        <%= render 'spree/shared/openid_connect', method: method %>
+      <% when 'google_oauth2' %>
+        <%= render 'spree/shared/google_oauth2', method: method %>
+      <% when 'facebook' %>
+        <%= render 'spree/shared/facebook', method: method %>
+      <% else %>
+        <div class='text-center my-4'>
+          <%= link_to path_for_omniauth(@spree_user, method.provider), id: method.provider.to_url, class: 'btn btn-primary' do %>
+            <span class='ml-2' style='font-weight: bold;'>Login with <%= "#{method.provider}" %></span>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

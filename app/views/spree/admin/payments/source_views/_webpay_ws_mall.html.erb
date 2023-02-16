@@ -1,0 +1,46 @@
+<% if payment.webpay_ws_mall? %>
+  <% webpay_params_transaction = payment.webpay_params %>
+  <dl>
+    <% if webpay_params_transaction.present? %>
+
+      <table class="table">
+        <tr>
+          <td><b><%= Spree.t("webpay_payment_type") %></b></td>
+          <td><%= payment.webpay_ws_mall_params_payment_type_code %></td>
+        </tr>
+        <tr>
+          <td><b><%= Spree.t("webpay_order_number") %></b></td>
+          <td><%= payment.webpay_ws_mall_params_buyorder %></td>
+        </tr>
+        <% unless @order.completed_at.nil? %>
+          <tr>
+            <td><b><%= Spree.t("webpay_trx_date") %></b></td>
+            <td><%= @order.completed_at.to_s(:db) %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td><b><%= Spree.t("webpay_payments_quota") %></b></td>
+          <td><%= payment.webpay_ws_mall_params_installments %></td>
+        </tr>
+        <tr>
+          <td><b><%= Spree.t("webpay_card_number") %></b></td>
+          <td><%= payment.webpay_ws_mall_params_card_number %></td>
+        </tr>
+        <tr>
+          <td><b><%= Spree.t("webpay_auth_code") %></b></td>
+          <td><%= payment.webpay_ws_mall_params_authorization_code %></td>
+        </tr>
+        <tr>
+          <td><b>Webpay params</b></td>
+          <td><%=payment.webpay_params %></td>
+        </tr>
+        <tr>
+          <td><b>Response code</b></td>
+          <td><%= payment.webpay_ws_mall_params_response_code %></td>
+        </tr>
+      </table>
+    <% end %>
+  </dl>
+<% end %>
+
+<%= render partial: 'spree/admin/shared/refund_history', locals: { refund_history: @refund_history } %>

@@ -1,0 +1,25 @@
+<table class="table table-bordered" id='invoices' data-order-id='<%= @order.number %>'>
+  <thead>
+    <tr data-hook="bank_accounts_header">
+      <th><%= Spree.t(:bank_name, scope: :bank_account) %></th>
+      <th><%= Spree.t(:bank_code, scope: :bank_account) %></th>
+      <th><%= Spree.t(:email, scope: :bank_account) %></th>
+      <th><%= Spree.t(:rut, scope: :bank_account) %></th>
+      <th><%= Spree.t(:account_number, scope: :bank_account) %></th>
+      <th><%= Spree.t(:customer_name, scope: :bank_account) %></th>
+      <th><%= Spree.t(:is_default) %></th>
+  </thead>
+  <tbody>
+    <% accounts.each do |account| %>
+      <tr id="<%= dom_id(account) %>" data-hook="account_row" data-number="<%= account.id %>">
+        <td><%= account.bank.name %></td>
+        <td><%= account.code %></td>
+        <td><%= account.email %></td>
+        <td><%= account.rut %></td>
+        <td><%= account.account_number %></td>
+        <td><%= account.name %></td>
+        <td><%= account.is_default %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

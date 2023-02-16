@@ -1,0 +1,6 @@
+<% if page.foreign_link.present? %>
+  <li class='navbar main-nav-bar-dropdown main-nav-bar-category'><%= link_to page.title, page.foreign_link, target: '_blank', rel: 'nofollow' %></li>
+<% else %>
+  <% page_uri = Rails.application.routes.named_routes[:spree].path.spec.to_s == '/' ? page.slug : Rails.application.routes.named_routes[:spree].path.spec.to_s + page.slug %>
+  <li class="navbar main-nav-bar-dropdown main-nav-bar-category <%= 'current' if (request.fullpath.gsub('//','/') == page_uri) %>"><%= link_to page.title, page_uri, class: 'p-2 main-nav-bar-item main-nav-bar-category-button' %></li>
+<% end %>

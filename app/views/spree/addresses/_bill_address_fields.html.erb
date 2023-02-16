@@ -1,0 +1,52 @@
+<%= invoice_select_tag(address_form, :document_type, address_id, current_store) %>
+
+<% if current_store.require_company_info_in_address %>
+  <% Spree::Address::COMPANY_FIELDS.each do |field| %>
+    <div class="form-group mb-4">
+      <%= address_company_field(address_form, field.to_sym, address_id) %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <div class="col">
+    <%= address_field(address_form, :address1, address_id) %>
+  </div>
+  <div class="col">
+    <%= street_number_field(address_form, :street_number, address_id) %>
+  </div>
+</div>
+
+<div class="form-group mb-4">
+  <%= address_field(address_form, :address2, address_id) %>
+</div>
+
+<div class="form-group mb-4">
+  <%= address_field(address_form, :state, address_id) { user_address_state(address_form, address.country, address_id) } if Spree::Config[:address_requires_state] %>
+</div>
+
+<div class="form-group mb-4" id=<%="#{address_id}county" %>>
+  <%= address_county(address_form, address.state, address.country) %>
+</div>
+
+<%= address_form.hidden_field :country_id, value: Spree::Config[:default_country_id] %>
+
+<div class='full_name'>
+  <div class="row" id=<%="#{address_id}full_name" %>>
+    <div class="col">
+      <%= address_field(address_form, :firstname, address_id) %>
+    </div>
+    <div class="col">
+      <%= address_field(address_form, :lastname, address_id) %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group mb-4 d-flex">
+  <div class="input-group mb-2" id=<%="#{address_id}phone"%>>
+    <div class="input-group-prepend">
+      <div class="input-group-text">+569</div>
+    </div>
+    <%= phone_field_tag(address_form, :phone, address_id) %>
+  </div>
+</div>

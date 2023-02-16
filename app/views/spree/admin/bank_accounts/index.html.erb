@@ -1,0 +1,25 @@
+<%= render partial: 'spree/admin/shared/order_tabs', locals: { current: :bank_accounts } %>
+
+<% content_for :page_actions do %>
+  <% if can?(:create, Spree::BankAccount) %>
+    <span id="new_bank_account">
+      <%= button_link_to Spree.t(:add_bank_account), new_admin_order_bank_account_url(@order), class: "btn-success", icon: 'add' %>
+    </span>
+  <% end %>
+<% end %>
+
+<% content_for :page_title do %>
+  / <%= Spree.t(:bank_accounts) %>
+<% end %>
+
+<% if @bank_accounts.any? %>
+
+  <div data-hook="bank_accounts_list" class="mb-3">
+    <%= render partial: 'spree/admin/shared/customer_bank_accounts', locals: { accounts: @bank_accounts } %>
+  </div>
+
+<% else %>
+  <div class="alert alert-info no-objects-found"><%= Spree.t(:not_found, scope: :bank_account) %></div>
+<% end %>
+
+<%= render partial: 'spree/admin/shared/order_summary' %>

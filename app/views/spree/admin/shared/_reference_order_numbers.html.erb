@@ -1,0 +1,37 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h1 class="card-title mb-0 h5">
+      <%= Spree.t(:reference_order_numbers) %>
+    </h1>
+  </div>
+
+  <table class="table table-bordered">
+    <tbody id="order-references" data-hook="order_edit_form">
+        <tr class="edit-tracking is-hidden total">
+          <td colspan="5">
+            <%= text_field_tag :reference_order_numbers, @order.reference_order_numbers, class: "form-control" %>
+          </td>
+          <td class="actions text-center">
+            <% if can? :update, @order %>
+              <%= link_to_with_icon 'cancel', Spree.t('actions.cancel'), "#", class: 'cancel-tracking btn btn-primary btn-sm', data: {action: 'cancel'}, title: Spree.t('actions.cancel'), no_text: true %>
+              <%= link_to_with_icon 'save', Spree.t('actions.save'), "#", class: 'save-reference btn btn-success btn-sm', data: {'order-number' => @order.number, 'url' => admin_order_path(@order), action: 'save'}, title: Spree.t('actions.save'), no_text: true %>
+            <% end %>
+          </td>
+        </tr>
+
+        <tr class="show-tracking total">
+          <td colspan="5" class="order-reference-value">
+            <% if @order.reference_order_numbers.present? %>
+              <strong><%= Spree.t(:reference_numbers) %>:</strong> <%= @order.reference_order_numbers %>
+            <% else %>
+              <%= Spree.t(:no_reference_order_numbers) %>
+            <% end %>
+          </td>
+          <td class="actions text-center">
+            <% if can? :update, @order %>
+              <%= link_to_with_icon 'edit', Spree.t('edit'), "#", class: 'edit-tracking btn btn-primary btn-sm', data: {action: 'edit'}, title: Spree.t('edit'), no_text: true %>
+            <% end %>
+          </td>
+    </tbody>
+  </table>
+</div>

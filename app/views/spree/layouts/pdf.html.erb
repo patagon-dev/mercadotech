@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="<%= I18n.locale %>">
+  <head data-hook="inside_head">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <%= wicked_pdf_stylesheet_link_tag 'spree/stores/mercadotech' %>
+    <%= wicked_pdf_javascript_include_tag 'spree/frontend/all' %>
+    <%= yield :head %>
+    <style>
+      .d-flex {
+        display: -webkit-box;
+        display: flex;
+      }
+      .row {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+      }
+      .row > div {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1; }
+      .font-weight-bold {
+        font-weight: 600 !important;
+      }
+      body {
+        font-size: 0.7rem;
+      }
+    </style>
+  </head>
+  <body data-hook="body">
+    <div class="container" data-hook>
+      <%= yield %>
+    </div>
+  </body>
+</html>

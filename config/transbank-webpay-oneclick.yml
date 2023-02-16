@@ -1,0 +1,23 @@
+development:
+  webpay_oneclick_commerce_code: '597055555541'
+  webpay_oneclick_api_key: '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C'
+  webpay_oneclick_child_commerce_code: '597055555542'
+  webpay_oneclick_integration_type: :TEST
+
+staging:
+  webpay_oneclick_commerce_code: '597055555541'
+  webpay_oneclick_api_key: '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C'
+  webpay_oneclick_child_commerce_code: '597055555542'
+  webpay_oneclick_integration_type: :TEST
+
+production:
+  webpay_oneclick_commerce_code: '597036448032'
+  webpay_oneclick_api_key: 'b9ebea65799c956e2c7269d5b46761ae'
+  webpay_oneclick_child_commerce_code: '597036478330'
+  webpay_oneclick_integration_type: :LIVE
+
+test:
+  webpay_oneclick_commerce_code: '597055555541'
+  webpay_oneclick_api_key: '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C'
+  webpay_oneclick_child_commerce_code: '597055555542'
+  webpay_oneclick_integration_type: :TEST

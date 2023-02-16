@@ -1,0 +1,18 @@
+<table class="table" id="listing_shipment_states" data-hook>
+  <thead>
+    <tr data-hook="admin_shipment_index_headers">
+      <th><%= Spree.t(:stock_location) %></th>
+      <th><%= Spree.t(:shipment_state) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% shipments.each do |shipment| %>
+      <tr data-hook="admin_shipments_index_rows">
+        <td><%= shipment.stock_location.name %></td>
+        <td>
+          <span class="badge badge-<%= shipment.state %>"><%= Spree.t("shipment_states.#{shipment.state}") %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

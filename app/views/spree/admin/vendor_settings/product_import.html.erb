@@ -1,0 +1,106 @@
+<% content_for :page_title do %>
+  <%= @vendor.name %>
+<% end %>
+
+<%= form_for [:admin, @vendor], url: admin_vendor_settings_url do |f| %>
+
+  <div class="form-group">
+    <%= f.field_container :import_options do %>
+      <%= f.label :import_options %>
+      <%= f.select :import_options, Spree::Vendor.import_options.keys.map{ |x| [x.titleize, x] }, {}, class: 'form-control' %>
+    <% end %>
+  </div>
+
+  <div data-hook="product_import_methods">
+    <div class="files <%= f.object.scrapinghub? ? 'd-none' : '' %>">
+      <div class="form-group">
+        <%= f.field_container :products_csv_url do %>
+          <%= f.label :products_csv_url, Spree.t(:products_csv_url)%>
+          <%= f.text_field :products_csv_url, class: 'form-control' %>
+          <%= f.error_message_on :products_csv_url %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <% if @vendor.products_imported_at %>
+          Products last synced at: <%= pretty_time(@vendor.products_imported_at) %>
+        <% end %>
+        <%= link_to Spree.t(:sync_now), import_csv_products_admin_products_path(vendor_id: @vendor.id, method_name: 'from_csv') , class: 'btn btn-success ml-2' if @vendor.products_csv_url.present? %>
+      </div>
+
+      <div class="form-group">
+        <%= f.field_container :products_xml_url do %>
+          <%= f.label :products_xml_url, Spree.t(:products_xml_url) %>
+          <%= f.text_field :products_xml_url, class: 'form-control' %>
+          <%= f.error_message_on :products_xml_url %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <% if @vendor.products_xml_imported_at %>
+          Products last synced at: <%= pretty_time(@vendor.products_xml_imported_at) %>
+        <% end %>
+        <%= link_to Spree.t(:sync_now), import_csv_products_admin_products_path(vendor_id: @vendor.id, method_name: 'from_xml') , class: 'btn btn-success ml-2' if @vendor.products_xml_url.present? %>
+      </div>
+    </div>
+
+    <div class="scrapinghub <%= f.object.scrapinghub? ? '' : 'd-none' %>">
+      <div class="form-group">
+        <%= f.field_container :scrapinghub_api_key do %>
+          <%= f.label :scrapinghub_api_key %>
+          <%= f.text_field :scrapinghub_api_key, class: 'form-control' %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.field_container :scrapinghub_project_id do %>
+          <%= f.label :scrapinghub_project_id %>
+          <%= f.text_field :scrapinghub_project_id, class: 'form-control' %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.field_container :full_spider do %>
+          <%= f.label :full_spider %>
+          <%= f.text_field :full_spider, class: 'form-control' %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.field_container :update_all_product do %>
+          <%= f.check_box :update_all_product %>
+          <%= f.label :update_all_product, Spree.t(:update_all_products), class: 'form-check-label' %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= link_to Spree.t(:sync_now), import_csv_products_admin_products_path(vendor_id: @vendor.id, method_name: 'from_full_scraping_hub') , class: 'btn btn-success ml-2' if @vendor.full_spider.present? %>
+      </div>
+
+      <div class="form-group">
+        <%= f.field_container :quick_spider do %>
+          <%= f.label :quick_spider %>
+          <%= f.text_field :quick_spider, class: 'form-control' %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= link_to Spree.t(:sync_now), import_csv_products_admin_products_path(vendor_id: @vendor.id, method_name: 'from_quick_scraping_hub') , class: 'btn btn-success ml-2' if @vendor.quick_spider.present? %>
+      </div>
+
+      <div class="form-group">
+        <% if @vendor.scrapinghub_imported_at %>
+          Products last synced at: <%= pretty_time(@vendor.scrapinghub_imported_at) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions" data-hook="buttons">
+    <%= button Spree.t('actions.update'), 'save' %>
+    <span class="or"><%= Spree.t(:or) %></span>
+    <%= button_link_to Spree.t('actions.cancel'), admin_vendor_settings_url, icon: 'delete' %>
+  </div>
+<% end %>
+
+<%= render partial: 'spree/admin/shared/vendor_side_tabs', locals: { current: 'product_import'} %>

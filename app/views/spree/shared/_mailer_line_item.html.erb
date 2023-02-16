@@ -1,0 +1,18 @@
+<% url = URI(spree.product_url(line_item&.product)) %>
+<% store_product_url = "#{url.scheme}://#{@current_store.url}/products/#{line_item&.product&.slug}" %>
+<tr>
+  <td class="six sub-columns">
+    <strong>
+      <% if frontend_available? %>
+        <%= link_to raw(line_item.variant.product.name), store_product_url %>
+      <% else %>
+        <%= raw(line_item.variant.product.name) %>
+      <% end %>
+    </strong>
+    <%= raw(line_item.variant.options_text) -%>
+    (<%= line_item.variant.sku %>)
+  </td>
+  <td class="six sub-columns last right">
+    <%= line_item.quantity %> x <%= line_item.single_money %> = <%= line_item.display_amount %>
+  </td>
+</tr>

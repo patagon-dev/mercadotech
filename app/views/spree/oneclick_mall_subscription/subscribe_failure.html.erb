@@ -1,0 +1,13 @@
+<div class="col-md-12 my-5 text-center">
+  <h4><%= Spree.t(:subscription_failure) %></h4>
+</div>
+<div class=" col-md-12 d-flex my-5 justify-content-center">
+  <div class="mx-3">
+    <%= form_for :subscribe, url: oneclick_mall_subscribe_path do |f| %>
+      <%= f.submit Spree.t("retry"), class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <div class="mx-3">
+    <%= link_to Spree.t("back"), checkout_state_path(:payment), class: "btn btn-info" %>
+  </div>
+</div>

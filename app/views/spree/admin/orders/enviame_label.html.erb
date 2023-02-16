@@ -1,0 +1,38 @@
+<% if order && shipment %>
+  <% if shipment.enviame_carrier&.code == 'SKN' %>
+    <% @invoice = order&.invoices&.where(vendor_id: shipment&.stock_location&.vendor.id)&.pluck(:number) %>
+    <% @invoices_numbers = @invoice.present? ? @invoice.join(', ') : nil %>
+  <% end %>
+  <div>
+    <h3><%= Spree.t(:order_details) %></h3>
+    <div>
+      <div><h6><%= Spree.t(:order_number) %>: <%= order.number %></h6></div>
+      <div><h6>
+      <% if @invoices_numbers.present? %>
+          <%= Spree.t(:invoice_numbers) %>: <%= @invoices_numbers %>
+        <% else %>
+          <%= Spree.t(:shipping_number) %>: <%= shipment.number %>
+        <% end %>
+        </h6></div>
+      <div><h6><%= Spree.t(:order_reference) %>: <%= order.reference_order_numbers %></h6></div>
+      <% if shipment.is_a?(Spree::Shipment) %>
+        <div><h6><%= Spree.t(:shipment_reference) %>: <%= shipment.reference_number %></h6></div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <h3><%= Spree.t(:item_details) %></h3>
+    <div>
+      <% if shipment.is_a?(Spree::Shipment) %>
+        <% shipment.line_items.each do |item| %>
+          <div><h6><%= Spree.t(:product_name) %>: <%= item.name %></h6></div>
+          <div><h6><%= Spree.t(:product_sku) %>: <%= item.sku.split('_').last if item.sku.present? %></h6></div>
+          <div><h6><%= Spree.t(:product_qty) %>: <%= item.quantity %></h6></div>
+          <div><h6><%= Spree.t(:product_partnumber) %>: <%= item.product.partnumber %></h6></div>
+          <hr/>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

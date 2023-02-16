@@ -1,0 +1,22 @@
+<table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" id="listing_orders_#{st_name}" data-hook>
+  <thead>
+    <tr data-hook="purchase_orders_headers">
+      <th><%= Spree.t(:sku) %></th>
+      <th><%= Spree.t(:qty) %></th>
+      <th><%= Spree.t(:mpn) %></th>
+      <th><%= Spree.t(:orders) %></th>
+      <th><%= Spree.t(:location) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% lists.each do |it_sku, items| %>
+      <tr data-hook="purchase_orders_index_rows" class="<%= cycle('odd', 'even') %>">
+        <td><%= it_sku.split('_').last %></td>
+        <td><%= items.sum(&:units) %></td>
+        <td><%= items.pluck(:partnumber).uniq.join(',') %></td>
+        <td><%= items.pluck(:number).uniq.join(',') %></td>
+        <td><%= items.pluck(:loc_name).uniq.join(',') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table><br>

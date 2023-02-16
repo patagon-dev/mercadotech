@@ -1,0 +1,45 @@
+<% content_for :page_title do %>
+  <%= @vendor.name %>
+<% end %>
+
+<%= form_for [:admin, @vendor], url: admin_vendor_settings_url do |f| %>
+  <fieldset>
+    <div class="form-group">
+      <%= f.field_container :invoice_options do %>
+        <%= f.label :invoice_options %>
+        <%= f.select :invoice_options, Spree::Vendor.invoice_options.keys.map{ |x| [x.titleize, x] }, {}, class: 'form-control' %>
+      <% end %>
+    </div>
+
+    <div class="superfactura <%= f.object.manual_upload? ? 'd-none' : '' %>">
+      <div class="form-group">
+        <%= f.field_container :superfactura_login do %>
+          <%= f.label :superfactura_login %>
+          <%= f.text_field :superfactura_login, class: 'form-control' %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.field_container :superfactura_password do %>
+          <%= f.label :superfactura_password %>
+          <%= f.password_field :superfactura_password, class: 'form-control' %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.field_container :superfactura_environment do %>
+          <%= f.label :superfactura_environment %>
+          <%= f.text_field :superfactura_environment, class: 'form-control' %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-actions" data-hook="buttons">
+      <%= button Spree.t('actions.update'), 'save' %>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= button_link_to Spree.t('actions.cancel'), admin_vendor_settings_url, icon: 'delete' %>
+    </div>
+  </fieldset>
+<% end %>
+
+<%= render partial: 'spree/admin/shared/vendor_side_tabs', locals: { current: 'invoice'} %>

@@ -1,0 +1,33 @@
+<div class="modal" id="update_product_categories">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Select Categories</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <%= form_tag update_products_categories_admin_products_path, method: :patch do %>
+        <div class="modal-body">
+          <div class="row justify-content-md-center font-weight-bold p-0">
+            <%= label_tag :add_data_true, class: 'mr-5' do %>
+              <%= radio_button_tag :add_data, true, required: 'required' %>
+              <%= Spree.t(:add_taxons, scope: :product_management) %>
+            <% end %>
+            <%= label_tag :add_data_false do %>
+              <%= radio_button_tag :add_data, false %>
+              <%= Spree.t(:replace_taxons, scope: :product_management) %>
+            <% end %>
+          </div>
+          <div>
+            <label for="product_taxon_ids">Taxons</label>
+            <%= select_tag :taxon_ids, options_from_collection_for_select(Spree::Taxon.all, :id, :pretty_name), multiple: true, class: 'select2-hidden-accessible', id: 'admin_product_taxon_ids' %>
+            <%= hidden_field_tag 'product_ids', params[:product_ids] %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= submit_tag 'Update', name: nil, class: 'btn btn-primary' %>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

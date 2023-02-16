@@ -1,0 +1,143 @@
+<div class="container account-page">
+  <ul class="nav nav-tabs mt-5 mb-5 d-flex flex-md-row flex-column" id="nav-tab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active text-uppercase mt-md-5 mt-0" id="nav-account-tab" data-toggle="tab" href="#nav-account" role="tab" aria-controls="nav-account" aria-selected="true"><%= accurate_title %></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  text-uppercase mt-md-5 mt-0" id="nav-my-order-tab" data-toggle="tab" role="tab" aria-controls="nav-my-order" aria-selected="false" href="#nav-my-order"><%= Spree.t(:my_orders) %></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-uppercase mt-md-5 mt-0" id="nav-bank-details-tab" data-toggle="tab" role="tab" aria-controls="bank-details" aria-selected="false" href="#nav-bank-details"><%= Spree.t(:bank_details) %></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-uppercase mt-md-5 mt-0" id="nav-rma-history-tab" data-toggle="tab" role="tab" aria-controls="rma-request" aria-selected="false" href="#nav-rma-request"><%= Spree.t(:rma_history, scope: :return_authorizations_view) %></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-uppercase mt-md-5 mt-0" id="nav-credit-cards" data-toggle="tab" role="tab" aria-controls="credit-cards" aria-selected="false" href="#nav-credit-cards-tab"><%= Spree.t(:credit_cards) %></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-uppercase mt-md-5 mt-0" id="nav-newsletter-tab" data-toggle="tab" role="tab" aria-controls="newsletter" aria-selected="false" href="#nav-newsletter"><%= Spree.t(:newsletter) %></a>
+    </li>
+  </ul>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-account-tab" id="nav-account">
+      <div class="row">
+        <div class="col-xs-12 col-lg-4">
+          <dt class="text-uppercase account-page-user-info-item-title">
+            <%= Spree.t(:email) %>
+          </dt>
+          <dd class="account-page-user-info-item-definition"><%= @user.email %></dd>
+
+          <div class="d-lg-inline-block account-page-user-info-item-store-credits">
+            <p class="my-0 text-uppercase text-center">
+              <%= Spree.t(:store_credit_name) %>: <b class="account-page-user-info-item-store-credits-amount"><%= Spree::Money.new(@user.total_available_store_credit).to_s.gsub('.00', '') %></b>
+            </p>
+          </div>
+        </div>
+        <div class="col-xs-12 col-lg-8 mt-sm-5 mt-lg-0">
+          <%= link_to Spree.t(:add_new_address), spree.new_address_path, class: 'account-page-new-address-link', method: :get %>
+
+          <div class="row">
+            <% @user.addresses.each_with_index do |address, index| %>
+              <div class="col-xs-12 col-lg-6">
+                <% index += 1 %>
+                <% if index % 3 == 0 %>
+                  <div class="account-page-user-info-item">
+                  </div>
+                <% end %>
+                <div class="account-page-user-info-item">
+                  <%= render "spree/users/address", address: address %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div id="delete-address-popup" class="delete-address-popup-dropdown hide-on-esc">
+        <%= render 'spree/shared/delete_address_popup' %>
+      </div>
+    </div>
+    <div class="tab-pane fade" role="tabpanel" aria-labelledby="nav-my-order-tab" id="nav-my-order">
+      <div class="row">
+        <div class="col-xs-12 col-lg-12 mt-sm-5 mt-lg-0">
+          <%= render 'spree/users/my_order' %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" role="tabpanel" aria-labelledby="nav-bank-details-tab" id="nav-bank-details">
+      <div class="row">
+        <div class="col-xs-12 col-lg-12 mt-sm-5 mt-lg-0">
+          <%= link_to Spree.t(:add_new_bank_details), spree.new_bank_account_path, class: 'account-page-new-address-link', method: :get %>
+
+          <div class="row">
+            <% @user.bank_accounts.each_with_index do |bank_account, index| %>
+              <div class="col-xs-12 col-lg-6">
+                <% index += 1 %>
+                <% if index % 3 == 0 %>
+                  <div class="account-page-user-info-item">
+                  </div>
+                <% end %>
+                <div class="account-page-user-info-item">
+                  <%= render 'spree/users/bank_account', bank_account: bank_account  %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div id="delete-bank-account-popup" class="delete-address-popup-dropdown hide-on-esc">
+        <%= render 'spree/shared/delete_bank_account_popup' %>
+      </div>
+    </div>
+    <div class="tab-pane fade" role="tabpanel" aria-labelledby="nav-rma-history-tab" id="nav-rma-request">
+      <div class="row">
+        <div class="col-xs-12 col-lg-12 mt-sm-5 mt-lg-0">
+          <%= render 'spree/users/return_authorization' %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" role="tabpanel" aria-labelledby="nav-credit-cards" id="nav-credit-cards-tab">
+      <div class="row">
+        <div class="col-xs-12 col-lg-12 mt-sm-5 mt-lg-0">
+          <% if @user.webpay_oneclick_mall_users.subscribed.any? %>
+            <div class="p-3 text-center">
+              <%= form_for :subscribe, url: spree.card_subscription_path do |f| %>
+                <% unless @user.rut.present? %>
+                  <%= f.label 'rut'%>
+                  <%= f.text_field 'rut', placeholder: Spree.t(:subscribe_rut), required: true %>
+                <% end %>
+                <%= f.submit Spree.t(:add_new_card), class: "btn btn-primary" %>
+              <% end %>
+            </div>
+            <h4><%= Spree.t(:webpay_saved_cards) %></h4>
+            <div class='my-3'>
+              <div class='mb-3'>
+                <%= render 'spree/oneclick_mall_subscription/unsubscription' %>
+              </div>
+            </div>
+          <% else %>
+            <div class="p-3 text-center">
+              <%= form_for :subscribe, url: spree.card_subscription_path do |f| %>
+                <% unless @user.rut.present? %>
+                  <%= f.label 'rut'%>
+                  <%= f.text_field 'rut', placeholder: Spree.t(:subscribe_rut), required: true %>
+                <% end %>
+                <%= f.submit Spree.t(:add_new_card), class: "btn btn-primary" %>
+              <% end %>
+            </div>
+            <div class="alert alert-info mt-5" role="alert">
+              <%= Spree.t(:no_credit_cards) %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" role="tabpanel" aria-labelledby="nav-newsletter-tab" id="nav-newsletter">
+      <div class="row">
+        <div class="col-xs-12 col-lg-12 mt-sm-5 mt-lg-0">
+          <%= render 'spree/users/newsletter' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

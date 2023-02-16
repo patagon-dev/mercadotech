@@ -1,0 +1,44 @@
+<div class="mt-3">
+  <div data-hook="admin_return_authorization_form_fields" >
+    <% if @user.return_authorizations.any? %>
+      <h3>
+        <%= Spree.t(:my_returns_history, scope: :return_authorizations_view)%>
+      </h3>
+      <div class="table-responsive overflow-x:scroll mt-4">
+        <table class="table table-striped index return-items-table">
+          <thead>
+            <tr data-hook="rma_header">
+              <th><%= Spree.t(:order) %></th>
+              <th><%= Spree.t(:return_authorization) %></th>
+              <th><%= Spree.t(:return_state, scope: :return_authorizations_view) %></th>
+              <th><%= Spree.t(:created_at) %></th>
+              <th><%= Spree.t('admin.shipment.download_label') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @user.return_authorizations.includes(:order).order(created_at: :desc).each do |return_authorization| %>
+              <% order = return_authorization.order %>
+              <tr>
+                <td><%= link_to order.number, order_path(order) %></td>
+                <td><%= link_to(return_authorization.number, order_return_authorization_path(order,id: return_authorization.number)) %> </td>
+                <td><%= return_authorization.state %></td>
+                <td><%= (return_authorization.created_at).strftime('%v') %></td>
+                <td>
+                  <% label = return_authorization.shipment_label&.enviame_label %>
+                  <% if label.present? && label.attached? %>
+                  <% file_path = s3_persisted_url(label) %>
+                  <%= link_to Spree.t('admin.shipment.download_label'), file_path, target: '_blank', class: 'btn btn-success btn-sm' %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="alert alert-info" role="alert">
+        <%= Spree.t(:you_have_no_return_history_yet) %>
+      </div>
+    <% end %>
+  </div>
+</div>

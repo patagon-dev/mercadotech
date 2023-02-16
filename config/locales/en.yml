@@ -1,0 +1,255 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+  spree:
+    already_in_use: 'already in use'
+    reference_number: 'Seller reference'
+    no_reference_number_present: 'No seller reference details provided'
+    rut: "RUT"
+    invoice_type: 'Invoice Type'
+    invoice_type_33: 'Invoice Type 33'
+    invoice_type_39: 'Invoice Type 39'
+    invoice_type_52: 'Invoice Type 52'
+    document: 'Document'
+    invalid_rut: "is invalid"
+    ticket_id: "Ticket ID"
+    tax_id: "tax ID"
+    codigo: "Code"
+    nombres: "First Name"
+    apellidos: "Last Name"
+    correo: "Email"
+    telefono: "Phone"
+    celular: "Mobile"
+    organismo: "Associated Company"
+    unidad: "Cost Center"
+    rut_unidad: "Associated Company VAT ID"
+    direccion: "Address"
+    citName: "City"
+    disName: "Region"
+    state_name: "State"
+    login_text: "Enter with your Unique Key and access Public Market"
+    micro_compra_name: "Micro Compra"
+    vendor_name: "Vendor"
+    vendor: "Vendor"
+    url: "Purchase Url"
+    status: "Status"
+    success: "Success"
+    message: "Message"
+    errors:
+      messages:
+        too_long: "Purchase Order Number is too long (maximum is %{max_length} characters)"
+    succeed: "Succeeded"
+    list:
+      email_or_list_id_not_exists: Email or list id not exists.
+      list_id_not_present: List id not present.
+      id: List Id
+      index: Lists
+      name: List Name
+      new: New List
+      newsletter: Newsletter
+      subscribe: Subscribe
+      subscribers: Subscribers
+      successfully_created: Successfully Created.
+      something_went_wrong: Something went wrong.
+      successfully_subscribed: Successfully Subscribe
+      successfully_unsubscribed: Successfully Unubscribe
+      store: List Store
+      title: List title
+      unsubscribe: Unsubscribe
+    show_only_not_paid_orders: Show only pending payment orders
+    show_only_not_shipped_orders: Show only pending shipment orders
+    show_related_products: "This product is also available by other vendors:"
+    stock_location: 'Stock Location: '
+    failed: "Failed"
+    products_are_importing_and_take_time: "Products importing has been started and it may take a while."
+    products_updated_successfully: "Products are updated successfully!"
+    nav_bar:
+      dashboard: "DASHBOARD"
+    order_state:
+      webpay_ws: webpay
+    order_purchase_invoice: Order Purchase Invoice - %{number}
+    update_status: 'Update Status'
+    webpay_ws_redirect: You'll be redirected to WebPay Hosted Payment Page. After completing the payment form you'll be back to the store.
+    webpay_ws_try_again_or_later: 'An error has occurred, please try again or later'
+    webpay_ws_payment_successfully_completed: Payment successfully completed
+    webpay_ws_payment_process_completed: Payment process completed
+    webpay_ws_payment_incompleted: Payment is not completed
+    purchase_code: Purchase code
+    webpay_ws_payment_with_errors: 'Errors were found, please try again using different payment methods.'
+    webpay_ws_thanks: Thanks you for your preference
+    webpay_ws_payment_registered: We have already registered the payment of your order.
+    webpay_ws_awaiting_confirmation: We are awaiting confirmation of payment of your order.
+    webpay_ws_captured: "Payment captured manually"
+    auth_code: 'Auth Code'
+    amount: 'Amount'
+    require_company_info_in_address: 'Require company info in address during checkout'
+    store_credit:
+      not_sufficient_amount: 'Not sufficient amount for this order.'
+    customer_purchased_details: 'Customer Purchased Order Details'
+    purchase_order_number: 'Purchase Order Number'
+    attached_purchased_order: 'Attached Purchased Order'
+    attach_purchased_order: 'Attach Purchased Order'
+    sync_now: 'Sync now'
+    products_csv_url: 'Products csv url'
+    enviame_carrier: 'Enviame Carrier'
+    carrier_service: 'Carrier Service'
+    enviame_vendor_id: 'Enviame vendor Id'
+    no_enviame_tracking_url_present: 'No Enviame tracking details present.'
+    enviame_warehouse_code: 'Enviame Warehouse Code'
+    track_shipment: 'Track Shipment'
+    generate_pickup_list: 'Generate Pickup List'
+    generate_purchase_list: 'Generate Purchase List'
+    failed_minimum_order_criteria: "Vendor %{name} has a minimum of %{amount}."
+    note: 'Note :'
+    in_stock: "In stock (%{count})"
+    minimum_order_value_for_vendor: "Vendor %{name} has a minimum amount of %{amount} per order."
+    refunded: 'Refunded'
+    part_number: 'PN'
+    shipment_number: 'Shipment Number'
+    sku: 'SKU'
+    include_refund_pending_orders: 'Pending refund orders'
+    payment_not_found: 'Payment Not Found!'
+    refresh_note_html: '<center><h1>Please do not refresh this page...</h1></center>'
+    checkout_page:
+      delivery_method: 'Dispatch Method For Vendor %{name}'
+    order_details: 'Order details'
+    item_details: 'Item details'
+    order_number: 'Order number'
+    shipping_number: 'Shipping number'
+    order_reference: 'Order Reference'
+    product_name: 'Product Name'
+    product_sku: 'Product Sku'
+    product_qty: 'Product Qty'
+    product_partnumber: 'Product PartNumber'
+    product_page_tabs: 'Product Page Vendor Tags'
+    admin:
+      invoice:
+        generate: 'Generate PDF Invoice'
+        download: 'Download Invoice'
+        not_generated: 'Not yet generated'
+      change_shipping_status: 'Change Shipping Status'
+    shipment_states:
+      pickup: Pickup
+      packed: Packed
+      waiting: Waiting
+      attention: Attention
+    payment_states:
+      refund_pending: refund pending
+      refunded: refunded
+    import_error_subject: 'Import Error Logs For %{name} - %{date}'
+    moova_api: MOOVA
+    moova_shipping_id_not_found: 'Moova shipment not found!'
+    is_moova: Is Moova Zone
+    bank_details: Bank Details
+    rma_request: RMA request
+    add_new_bank_details: Add new bank details
+    rut: RUT
+    select_bank: Select Bank
+    select_vendor: Select Vendor
+    bank_account:
+      account_number: Account Number
+      created_successfully: Bank account successfully created!
+      updated_successfully: Bank account successfully updated!
+      destroyed_successfully: Bank account successfully destroyed!
+      refund_successfully: Transaction refund successfully!
+      bank_name: "Bank Name: "
+      bank_code: "Bank Code: "
+      email: "Email: "
+      rut: "RUT: "
+      customer_name: "Customer Name: "
+      not_found: Bank account not found!
+      is_default: Is Default
+    api_refund: Api Refund
+    refund_request_prompt: "Are you sure you want to refund to make refund of amount %{amount} ?"
+    subscribe: Subscribe
+    shipping_label: Shipping Label
+    shipment_label: Shipment Label
+    return_authorization_number: Return Authorization Number
+    return_shipping_label_note: RMA Shipping Label
+    return_shipping_label_subject: Return Shipping Label
+    shipment_label_destroyed_successfully: Return Shipping Label destroyed successfully!
+    add_bank_account: Add Bank Account
+    bank_accounts: Bank Accounts
+    new_bank_account: New Bank Account
+    return_authorization_view:
+      my_returns_history: My Returns History
+    return_authorizations_controller:
+      order_not_found: Order not found
+      return_authorization_not_found: This ReturnAuthorization not found for the current order
+      return_authorization_not_authorized: ReturnAuthorization cannot be created for the current order
+      successfully_created: Successfully Created
+    return_authorizations_view:
+      back_to_account: Bank To Account
+      new_return_request: New Return Request
+      return_request: Return Request
+      back_to_order: Back to Order
+      back_to_return_history: Back to Return History
+      return_request_status: Return Request Status
+    review: Reviews
+    return_options: Return Options
+    you_have_no_return_history_yet: "You don't have any return history yet."
+    show_tax_on_checkout: Show included tax on checkout
+    you_have_unactive_vendors_product: You have inactive vendor products
+  admin:
+    shipment:
+      download_label: 'Download Label'
+    products_without_categories: "Show products that don't have a category assigned"
+    show_discontinued: "Show discontinued products"
+    show_only_products_with_stock: "Show only products with stock"
+    import_store_ids: "Store Ids for which import runs"
+    return_authorization:
+      label: Generate shipping label
+  devise:
+    omniauth_callbacks:
+      unauthorized_access: "You are unauthorized signed in with your %{kind} account."
+
+  activerecord:
+    attributes:
+      spree/address:
+        state_name: "State"
+        company_rut: 'Company RUT'
+        e_rut: 'e-RUT'
+        company_business: 'Company Business'
+        street_number: 'Street Number'
+      spree/order:
+        reference_order_numbers: Reference Id
+        st_shipment_state: Stock location shipment state
+
+  number:
+    currency:
+      format:
+        separator: '.'
+        precision: 2
+        delimiter: '.'
+
+

@@ -1,0 +1,6 @@
+<div class='text-center'>
+  <p><%= Spree.t(:login_text) %></p>
+  <%= link_to path_for_omniauth(@spree_user, method.provider), id: method.provider.to_url do %>
+    <%= image_tag('claveunica.png') %>
+  <% end %>
+</div>

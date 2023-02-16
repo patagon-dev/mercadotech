@@ -1,0 +1,18 @@
+<% if current_spree_user.admin? %>
+  <div class="col-12 col-lg-6">
+    <div class="card mb-3 tax_categories">
+      <div class="card-header">
+        <h1 class="card-title mb-0 h5">
+          <%= Spree.t(:vendor) %>
+        </h1>
+      </div>
+
+      <div class="card-body">
+        <%= f.field_container :vendors, class: ['form-group'] do %>
+          <%= f.select :vendor_id, Spree::Vendor.all.map { |v| [v.name, v.id] }, { include_blank: false }, class: "select2" %>
+          <%= f.error_message_on :vendor_id %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

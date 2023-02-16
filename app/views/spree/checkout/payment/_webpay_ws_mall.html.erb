@@ -1,0 +1,25 @@
+<p>
+  <%= Spree.t(:webpay_ws_redirect) %>
+</p>
+<% if Rails.env.development? %>
+  Parámetros a enviar a WS pagos:
+  <dl>
+  <dt>TBK_TIPO_TRANSACCION: </dt>
+    <dd>TR_NORMAL</dd>
+
+    <dt>TBK_ORDEN_COMPRA: </dt>
+    <dd><%= @order.number %></dd>
+
+    <dt>TBK_ID_SESION</dt>
+    <dd><%= Digest::MD5.hexdigest("#{@order.number}#{@order.payments.count}") %></dd>
+
+    <dt>TBK_MONTO: </dt>
+    <dd><%= @order.webpay_ws_mall_amount %></dd>
+
+    <dt>TBK_URL_CONFIRMACION</dt>
+    <dd><%= webpay_ws_mall_confirmation_url(:protocol => "https") %></dd>
+
+    <dt>TBK_URL_EXITO</dt>
+    <dd><%= webpay_ws_mall_success_url(:protocol => "https") %></dd>
+  </dl>
+<% end %>

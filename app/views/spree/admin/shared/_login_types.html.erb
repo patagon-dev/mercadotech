@@ -1,0 +1,13 @@
+<div data-hook="login_types">
+  <%= f.field_container :login_types, class: ['form-group'] do %>
+    <%= f.label :login_types, Spree.t(:login_types) %><br />
+    <% Spree::AuthenticationMethod.active_methods.each do |auth_method| %>
+      <label class="sub">
+        <%= check_box_tag 'store[authentication_type_ids][]', auth_method.id, @store.authentication_types.include?(auth_method) %>
+      </label> &nbsp;
+      <%= auth_method.provider %>
+      <br>
+    <% end %>
+    <%= hidden_field_tag 'store[authentication_type_ids][]', '' %>
+  <% end %>
+</div>

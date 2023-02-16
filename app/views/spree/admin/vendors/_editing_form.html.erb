@@ -1,0 +1,68 @@
+<%= render partial: 'spree/shared/error_messages', locals: { target: @vendor } %>
+<div class="form-group">
+  <%= f.field_container :name do %>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  <% end %>
+  <%= f.field_container :rut, class: ['form-group'] do %>
+    <%= f.label :rut, Spree.t(:rut) %>
+    <%= f.text_field :rut, class: 'form-control' %>
+    <%= f.error_message_on :rut %>
+  <% end %>
+  <%= f.field_container :ticket_id, class: ['form-group'] do %>
+    <%= f.label :ticket_id, Spree.t(:ticket_id) %>
+    <%= f.text_field :ticket_id, class: 'form-control' %>
+    <%= f.error_message_on :ticket_id %>
+  <% end %>
+  <%= f.field_container :address, class: ['form-group'] do %>
+    <%= f.label :address, Spree.t(:address) %>
+    <%= f.text_field :address, class: 'form-control' %>
+    <%= f.error_message_on :address %>
+  <% end %>
+  <%= f.field_container :phone, class: ['form-group'] do %>
+    <%= f.label :phone, Spree.t(:phone) %>
+    <%= f.text_field :phone, class: 'form-control' %>
+    <%= f.error_message_on :phone %>
+  <% end %>
+  <%= f.field_container :about_us do %>
+    <%= f.label :about_us %>
+    <%= f.text_area :about_us, class: 'form-control' %>
+  <% end %>
+  <%= f.field_container :contact_us do %>
+    <%= f.label :contact_us %>
+    <%= f.text_area :contact_us, class: 'form-control' %>
+  <% end %>
+  <%= f.field_container :state do %>
+    <%= f.label :state %>
+    <%= f.select :state,
+      options_for_select(Spree::Vendor.state_machines[:state].states.collect { |s| [Spree.t("vendor_states.#{s.name}"), s.value] }, selected: @vendor.state),
+      {}, class: 'select2', required: :required %>
+  <% end %>
+
+  <div class="form-check">
+    <%= f.check_box :set_minimum_order, { class: 'form-check-input set_min_order'} %>
+    <%= f.label :set_minimum_order, class: 'form-check-label' %>
+  </div>
+  <%= f.field_container :minimum_order_value, class: [@vendor.minimum_order_value.present? ? '' : 'd-none'] do %>
+    <%= f.label :minimum_order_value %>
+    <%= f.text_field :minimum_order_value, class: "form-control mb-2" %>
+  <% end %>
+
+  <% if Spree.version.to_f >= 3.6 %>
+    <%= f.field_container :image do %>
+      <%= f.label :image %>
+      <%= f.file_field :image %>
+      <%= image_tag s3_persisted_url(@vendor.image.attachment) if @vendor.image %>
+    <% end %>
+  <% end %>
+  <%= f.field_container :commission_rate do %>
+    <%= f.label :commission_rate %>
+    <%= f.number_field :commission_rate, step: '0.01', class: 'form-control' %>
+  <% end %>
+  <%= f.field_container :notification_email do%>
+    <%= f.label :notification_email %>
+    <%= f.email_field :notification_email, class: 'form-control' %>
+  <% end %>
+</div>
+
+<%= render partial: 'spree/admin/shared/vendor_admin_side_tabs', locals: { current: 'main'} %>

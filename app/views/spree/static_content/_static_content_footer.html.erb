@@ -1,0 +1,13 @@
+<% pages = Spree::Page.by_store(current_store).visible.footer_links %>
+<% if pages.present? %>
+  <% Spree::Page.footer_titles.keys.each do |col_name| %>
+    <div class="d-flex flex-column">
+      <div class="footer-spree-label px-5"><%= col_name %></div>
+      <% pages.where(footer_title: col_name).each do |page| %>
+        <div class="px-5">
+          <%= link_to page.title, page.link, target: '_blank', rel: 'nofollow noopener noreferrer' %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

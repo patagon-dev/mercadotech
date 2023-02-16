@@ -1,0 +1,38 @@
+default: &default
+  assertion_consumer_service_binding: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+  idp_cert: "MIICrzCCAZcCBgF0q3zvEzANBgkqhkiG9w0BAQsFADAbMRkwFwYDVQQDDBBNZXJjYWRvIEVtcHJlc2FzMB4XDTIwMDkyMDEyMjcwNVoXDTMwMDkyMDEyMjg0NVowGzEZMBcGA1UEAwwQTWVyY2FkbyBFbXByZXNhczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAPMId+Ge8Ix8duNEG0LrxzT35y1g7vaFNE5Bm9tTOE2dKalpj/ghJgsKXtdKNNSBFIk/Tv+JI9BrUhtRr9ISUx7k5inyG1kDmBWxSSRryJyWxY94gofmXNxLRuuiyxfQbkfF0z47BI4SamZHv4I4y6puuY6AtA+47TtlWpkTN4IFDCqbG+Kkkge7BY5mMgxpLTJiQ2K15oKNfBvo1pJ1FxM4CAv9d86N6uU6AcSl9zgeXcpFJD4Nh20Z1m2fmOjvKs7xL4u3JwiuKVLE+5GXzUpubvaLkObZnQA0E7FwEEmj2J+huAKqoVJFF4xZfvrXeeCtdMfnT0tja3tv3zFUabECAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAW9USWELqUV9n5q2Huep9HMHoU4XUCjEPQPa8/N3PXIEb861zj7t6SxC+lqCMz781TOIGrREXv3D4S2QTEOKymTwU/EtnuVByRwRhAzbr63ccuBhubnmU39YmMaQ9gb3r//TEE9o6BM2AV5K6htzl60cn9sx4pHHjU/eQK5lsgb5rVaZeXiyUa09YGpx8BWICSCHDKXDxE1IceKnWZEfU2ncxjUViyky8bnltiTLVcsbYbWbqYjdiQh4xgPmKOxAQ16O+tOmbxK70y8Ey3rqZwU56RO1ymcW2kTz320TSEdIAyFLbDZp8fBSAEbYAsQbzzH8ISg4IMJKu5rUPJt61YQ=="
+  idp_sso_target_url: "https://login.mercadoempresas.cl/auth/realms/mercadoempresas/protocol/saml"
+  idp_slo_target_url: 'https://login.mercadoempresas.cl/auth/realms/mercadoempresas/protocol/saml'
+  name_identifier_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+
+development:
+  localhost:
+    <<: *default
+    assertion_consumer_service_url: 'http://localhost:3000/saml/auth'
+    issuer: 'http://localhost:3000/saml/metadata'
+staging:
+  stage.mercadotech.cl:
+    <<: *default
+    assertion_consumer_service_url: 'https://stage.mercadotech.cl/saml/auth'
+    issuer: 'https://stage.mercadotech.cl/saml/metadata'
+  stage.mercadodeportivo.cl:
+    <<: *default
+    assertion_consumer_service_url: 'https://stage.mercadodeportivo.cl/saml/auth'
+    issuer: 'https://stage.mercadodeportivo.cl/saml/metadata'
+production:
+  www.mercadotech.cl:
+    <<: *default
+    assertion_consumer_service_url: 'https://www.mercadotech.cl/saml/auth'
+    issuer: 'https://www.mercadotech.cl/saml/metadata'
+  www.mercadodeportivo.cl:
+    <<: *default
+    assertion_consumer_service_url: 'https://www.mercadodeportivo.cl/saml/auth'
+    issuer: 'https://www.mercadodeportivo.cl/saml/metadata'
+  www.mercadooficina.cl:
+    <<: *default
+    assertion_consumer_service_url: 'https://www.mercadooficina.cl/saml/auth'
+    issuer: 'https://www.mercadooficina.cl/saml/metadata'
+  www.mercadodelvino.cl:
+    <<: *default
+    assertion_consumer_service_url: 'https://www.mercadodelvino.cl/saml/auth'
+    issuer: 'https://www.mercadodelvino.cl/saml/metadata'

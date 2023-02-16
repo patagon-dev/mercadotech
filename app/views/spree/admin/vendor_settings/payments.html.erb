@@ -1,0 +1,59 @@
+<% content_for :page_title do %>
+  <%= @vendor.name %>
+<% end %>
+
+<%= form_for [:admin, @vendor], url: admin_vendor_settings_url do |f| %>
+  <fieldset>
+    <%= render partial: 'spree/shared/error_messages', locals: { target: @vendor } %>
+    <div class="form-group">
+      <%= f.field_container :webpay_ws_mall_store_code do %>
+        <%= f.label :webpay_ws_mall_store_code %>
+        <%= f.text_field :webpay_ws_mall_store_code, class: 'form-control' %>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.field_container :webpay_oneclick_store_code do %>
+        <%= f.label :webpay_oneclick_store_code %>
+        <%= f.text_field :webpay_oneclick_store_code, class: 'form-control' %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.field_container :enable_bank_transfer do %>
+        <%= f.label :enable_bank_transfer %>
+        <%= f.check_box :enable_bank_transfer %>
+      <% end %>
+    </div>
+
+    <div class="bank_transfer_fields <%= f.object.enable_bank_transfer ? '' : 'd-none' %>">
+      <div class="form-group">
+        <%= f.field_container :bank_transfer_url do %>
+          <%= f.label :bank_transfer_url %>
+          <%= f.text_field :bank_transfer_url, class: 'form-control' %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.field_container :bank_transfer_login do %>
+          <%= f.label :bank_transfer_login %>
+          <%= f.text_field :bank_transfer_login, class: 'form-control' %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.field_container :bank_transfer_password do %>
+          <%= f.label :bank_transfer_password %>
+          <%= f.password_field :bank_transfer_password, class: 'form-control' %>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="form-actions" data-hook="buttons">
+      <%= button Spree.t('actions.update'), 'save' %>
+      <span class="or"><%= Spree.t(:or) %></span>
+      <%= button_link_to Spree.t('actions.cancel'), admin_vendor_settings_url, icon: 'delete' %>
+    </div>
+  </fieldset>
+<% end %>
+
+<%= render partial: 'spree/admin/shared/vendor_side_tabs', locals: { current: 'payments'} %>

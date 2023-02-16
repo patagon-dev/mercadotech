@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="not-found-page text-center pt-5">
+    <h1 class="display-1 text-primary"><%= params[:code] %></h1>
+    <p><strong><%= Spree.t("error_#{params[:code]}".to_sym, scope: :error_found) %></strong></p>
+    <p><%= Spree.t(:get_back_to_the) %> <%= link_to Spree.t(:home_page), spree.root_url %></p>
+  </div>
+</div>

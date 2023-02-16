@@ -1,0 +1,30 @@
+<div class="card plp-overlay-card">
+  <div class="card-header text-uppercase plp-overlay-card-header collapsed" id="collapseBrand" data-toggle="collapse" data-target="#collapse<%= filter_name %>" aria-expanded="true" aria-controls="collapse<%= filter_name %>" role="heading" aria-level="3">
+    <%= Spree.t("esfilters.#{filter[:name]}") %>
+    <%= icon(name: 'arrow-right',
+            classes: 'spree-icon-arrow spree-icon-arrow-right mt-1 float-right arrow plp-overlay-card-header-arrow',
+            width: 16,
+            height: 16) %>
+  </div>
+  <div id="collapse<%= filter_name %>" class="collapse" aria-labelledby="collapse<%= filter_name %>" data-parent="#filters-accordion">
+    <% if filter_name == 'color' %>
+      <div class="card-body pt-1">
+        <% filter[:options].each do |f| %>
+          <div class="d-inline-block plp-overlay-card-item1">
+            <input type="checkbox" id="<%= f[:label] %>" name="search[<%= filter[:name] %>][]" value="<%= f[:value] %>" class='d-none' />
+            <%= render partial: "spree/shared/color_select", locals: { color: f[:value], selected: false } %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="card-body pt-1">
+        <% filter[:options].each do |f| %>
+          <div class="d-inline-block py-1 px-2 m-1 text-uppercase plp-overlay-card-item1">
+            <input type="checkbox" id="<%= f[:label] %>" name="search[<%= filter[:name] %>][]" value="<%= f[:value] %>" class='d-none' />
+            <%= f[:label] %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

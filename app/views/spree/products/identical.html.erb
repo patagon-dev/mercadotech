@@ -1,0 +1,11 @@
+<% if @identical_products.any? %>
+  <div id="identical-products" class="pt-5">
+    <div class="product-details-identical">
+      <h5><%= Spree.t('show_related_products') %></h5>
+	    <% @identical_products.each do |identical_product| %>
+	      <%= display_price(identical_product) %>
+	      <%= link_to "#{identical_product.vendor.name}", product_path(identical_product) %><br/>
+	    <% end %>
+    </div>
+  </div>
+<% end %>

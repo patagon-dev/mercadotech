@@ -1,0 +1,7 @@
+<% address_id = address_type.chars.first %>
+<% case address_id %>
+<% when 'b' %>
+  <%= render partial: 'spree/addresses/bill_address_fields', locals: { address: address, address_form: address_form, address_id: address_id } %>
+<% when 's' %>
+  <%= render partial: 'spree/addresses/ship_address_fields', locals: { address: address, address_form: address_form, address_id: address_id } %>
+<% end %>
